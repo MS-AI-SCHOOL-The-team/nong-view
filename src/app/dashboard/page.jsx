@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <body className={styles.page}>
       <header className={styles.header}>
-        <Image src="/logo.png" alt="농뷰 로고" width={380} height={163.125}></Image>
+        <Image src="/logo.png" alt="농뷰 로고" width={380} height={163.125} quality={100}></Image>
       </header>
       <main className={styles.main}>
         <section>

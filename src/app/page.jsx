@@ -11,7 +11,7 @@ export default function () {
             </header>
 
             <div className={styles.logo}>
-                <Image src="/logo.png" alt="농뷰 로고" width={380} height={163.125}></Image>
+                <Image src="/logo.png" alt="농뷰 로고" width={380} height={163.125} quality={100} unoptimized />
             </div>
 
             <div className={styles["user-guide"]}>
