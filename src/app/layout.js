@@ -31,9 +31,7 @@ export default function RootLayout({ children }) {
           })(window, document, "clarity", "script", "${process.env.NEXT_PUBLIC_CLARITY_TAG_ID}");
         `}
       </Script>
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
-      </body>
+      {children}
     </html>
   );
 }

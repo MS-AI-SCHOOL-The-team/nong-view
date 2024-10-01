@@ -1,9 +1,8 @@
-import Image from "next/image";
-import styles from "./page.module.css";
 import dynamic from "next/dynamic";
-import Chat from "./component/Chat";
+import Chat from "../../component/Chat";
+import styles from "./page.module.css";
 
-const Chart = dynamic(() => import("./component/Chart"), { ssr: false })
+const Chart = dynamic(() => import("../../component/Chart"), { ssr: false })
 
 export default function Home() {
   return (
