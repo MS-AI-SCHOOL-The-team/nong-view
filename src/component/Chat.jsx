@@ -12,8 +12,16 @@ const ChatButton = () => {
     );
 };
 
-const TextBox = ({ value, onChange }) => {
+const TextBox = ({ value, onChange, onCtrlEnter }) => {
     const { pending } = useFormStatus();
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter' && e.ctrlKey) {
+            e.preventDefault();
+            onCtrlEnter();
+        }
+    };
+
     return (
         <textarea
             className={styles.textbox}
@@ -24,6 +32,7 @@ const TextBox = ({ value, onChange }) => {
             disabled={pending}
             value={value}
             onChange={onChange}
+            onKeyDown={handleKeyDown}
         ></textarea>
     );
 };
@@ -32,6 +41,7 @@ export default function Chat() {
     const [messages, setMessages] = useState([]);
     const [inputValue, setInputValue] = useState('');
     const chatWrapperRef = useRef(null);
+    const formRef = useRef(null);
 
     useEffect(() => {
         if (chatWrapperRef.current) {
@@ -56,6 +66,12 @@ export default function Chat() {
         }
     };
 
+    const handleCtrlEnter = () => {
+        if (formRef.current) {
+            formRef.current.requestSubmit();
+        }
+    };
+
     return (
         <>
             <section className={styles["chat-wrapper"]} ref={chatWrapperRef}>
@@ -66,10 +82,11 @@ export default function Chat() {
                     </article>
                 ))}
             </section>
-            <form className={styles.form} action={handleSubmit}>
+            <form className={styles.form} action={handleSubmit} ref={formRef}>
                 <TextBox
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
+                    onCtrlEnter={handleCtrlEnter}
                 />
                 <ChatButton />
             </form>
