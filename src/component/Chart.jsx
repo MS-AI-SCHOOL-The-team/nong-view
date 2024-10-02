@@ -8,7 +8,8 @@ export default function () {
     useEffect(() => {
         var options = {
             chart: {
-                type: 'bar'
+                type: 'bar',
+                height: '600px'
             },
             series: [{
                 name: 'sales',
