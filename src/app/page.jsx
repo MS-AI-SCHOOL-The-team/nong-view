@@ -24,7 +24,6 @@ export default function () {
             </Link>
 
             <footer className={styles.footer}>
-                <p>By. MS AI School 4기 그팀</p>
             </footer>
         </div>
     </body>
