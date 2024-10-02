@@ -31,3 +31,7 @@
     border: none;
     cursor: pointer;
 }
+
+.form>button:disabled {
+    opacity: 50%;
+}
