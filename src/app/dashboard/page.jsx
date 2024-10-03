@@ -18,16 +18,46 @@ export default function Home() {
           <p className={styles.note}>※ 중복 선택 불가</p>
           <div className={styles["checkbox-container"]}>
             <form action="">
-              <input className={styles.checkbox} type="checkbox" name="배추" id="배추" /> <label htmlFor="배추">배추</label>
-              <input className={styles.checkbox} type="checkbox" name="무" id="무" /> <label htmlFor="무">무</label>
-              <input className={styles.checkbox} type="checkbox" name="양파" id="양파" /> <label htmlFor="양파">양파</label>
-              <input className={styles.checkbox} type="checkbox" name="사과" id="사과" /> <label htmlFor="사과">사과</label>
-              <input className={styles.checkbox} type="checkbox" name="배" id="배" /> <label htmlFor="배">배</label>
-              <input className={styles.checkbox} type="checkbox" name="건고추" id="건고추" /> <label htmlFor="건고추">건고추</label>
-              <input className={styles.checkbox} type="checkbox" name="깐마늘" id="깐마늘" /> <label htmlFor="깐마늘">깐마늘</label>
-              <input className={styles.checkbox} type="checkbox" name="감자" id="감자" /> <label htmlFor="감자">감자</label>
-              <input className={styles.checkbox} type="checkbox" name="대파" id="대파" /> <label htmlFor="대파">대파</label>
-              <input className={styles.checkbox} type="checkbox" name="상추" id="상추" /> <label htmlFor="상추">상추</label>
+              <label className={styles.label} htmlFor="배추">
+                <input className={styles.checkbox} type="radio" name="item" id="배추" />
+                배추
+              </label>
+              <label className={styles.label} htmlFor="무">
+                <input className={styles.checkbox} type="radio" name="item" id="무" />
+                무
+              </label>
+              <label className={styles.label} htmlFor="양파">
+                <input className={styles.checkbox} type="radio" name="item" id="양파" />
+                양파
+              </label>
+              <label className={styles.label} htmlFor="사과">
+                <input className={styles.checkbox} type="radio" name="item" id="사과" />
+                사과
+              </label>
+              <label className={styles.label} htmlFor="배">
+                <input className={styles.checkbox} type="radio" name="item" id="배" />
+                배
+              </label>
+              <label className={styles.label} htmlFor="건고추">
+                <input className={styles.checkbox} type="radio" name="item" id="건고추" />
+                건고추
+              </label>
+              <label className={styles.label} htmlFor="깐마늘">
+                <input className={styles.checkbox} type="radio" name="item" id="깐마늘" />
+                깐마늘
+              </label>
+              <label className={styles.label} htmlFor="감자">
+                <input className={styles.checkbox} type="radio" name="item" id="감자" />
+                감자
+              </label>
+              <label className={styles.label} htmlFor="대파">
+                <input className={styles.checkbox} type="radio" name="item" id="대파" />
+                대파
+              </label>
+              <label className={styles.label} htmlFor="상추">
+                <input className={styles.checkbox} type="radio" name="item" id="상추" />
+                상추
+              </label>
             </form>
           </div>
           <article className={styles["chart-box"]}>
