@@ -17,48 +17,46 @@ export default function Home() {
           <h1>농산물 가격 AI 예측</h1>
           <p className={styles.note}>※ 중복 선택 불가</p>
           <div className={styles["checkbox-container"]}>
-            <form action="">
-              <label className={styles.label} htmlFor="배추">
-                <input className={styles.checkbox} type="radio" name="item" id="배추" />
-                배추
-              </label>
-              <label className={styles.label} htmlFor="무">
-                <input className={styles.checkbox} type="radio" name="item" id="무" />
-                무
-              </label>
-              <label className={styles.label} htmlFor="양파">
-                <input className={styles.checkbox} type="radio" name="item" id="양파" />
-                양파
-              </label>
-              <label className={styles.label} htmlFor="사과">
-                <input className={styles.checkbox} type="radio" name="item" id="사과" />
-                사과
-              </label>
-              <label className={styles.label} htmlFor="배">
-                <input className={styles.checkbox} type="radio" name="item" id="배" />
-                배
-              </label>
-              <label className={styles.label} htmlFor="건고추">
-                <input className={styles.checkbox} type="radio" name="item" id="건고추" />
-                건고추
-              </label>
-              <label className={styles.label} htmlFor="깐마늘">
-                <input className={styles.checkbox} type="radio" name="item" id="깐마늘" />
-                깐마늘
-              </label>
-              <label className={styles.label} htmlFor="감자">
-                <input className={styles.checkbox} type="radio" name="item" id="감자" />
-                감자
-              </label>
-              <label className={styles.label} htmlFor="대파">
-                <input className={styles.checkbox} type="radio" name="item" id="대파" />
-                대파
-              </label>
-              <label className={styles.label} htmlFor="상추">
-                <input className={styles.checkbox} type="radio" name="item" id="상추" />
-                상추
-              </label>
-            </form>
+            <label className={styles.label} htmlFor="배추">
+              <input className={styles.checkbox} type="radio" name="item" id="배추" defaultChecked={true} />
+              배추
+            </label>
+            <label className={styles.label} htmlFor="무">
+              <input className={styles.checkbox} type="radio" name="item" id="무" />
+              무
+            </label>
+            <label className={styles.label} htmlFor="양파">
+              <input className={styles.checkbox} type="radio" name="item" id="양파" />
+              양파
+            </label>
+            <label className={styles.label} htmlFor="사과">
+              <input className={styles.checkbox} type="radio" name="item" id="사과" />
+              사과
+            </label>
+            <label className={styles.label} htmlFor="배">
+              <input className={styles.checkbox} type="radio" name="item" id="배" />
+              배
+            </label>
+            <label className={styles.label} htmlFor="건고추">
+              <input className={styles.checkbox} type="radio" name="item" id="건고추" />
+              건고추
+            </label>
+            <label className={styles.label} htmlFor="깐마늘">
+              <input className={styles.checkbox} type="radio" name="item" id="깐마늘" />
+              깐마늘
+            </label>
+            <label className={styles.label} htmlFor="감자">
+              <input className={styles.checkbox} type="radio" name="item" id="감자" />
+              감자
+            </label>
+            <label className={styles.label} htmlFor="대파">
+              <input className={styles.checkbox} type="radio" name="item" id="대파" />
+              대파
+            </label>
+            <label className={styles.label} htmlFor="상추">
+              <input className={styles.checkbox} type="radio" name="item" id="상추" />
+              상추
+            </label>
           </div>
           <article className={styles["chart-box"]}>
             <div className={styles["chart-placeholder"]}>
