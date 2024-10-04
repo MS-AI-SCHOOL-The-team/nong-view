@@ -1,7 +1,7 @@
 .page {
   font-family: 'Pretendard', sans-serif;
   margin: 0;
-  min-height: 100vh;
+  height: 100vh;
   color: #333;
   display: flex;
   flex-direction: column;
@@ -18,6 +18,9 @@
   display: flex;
   flex-direction: row;
   gap: 32px;
+  flex: 1;
+  overflow: hidden;
+  padding: 0 20px;
 }
 
 .chart-section {
@@ -26,7 +29,9 @@
   border: 2px solid #d9d9d9;
   padding: 24px;
   border-radius: 12px;
-  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .note {
@@ -43,7 +48,8 @@
   border-radius: 8px;
   padding: 16px;
   margin-top: 16px;
-  height: 600px;
+  flex: 1;
+  overflow: auto;
 }
 
 .chat-section {
@@ -51,7 +57,9 @@
   background-color: #96beea;
   padding: 24px;
   border-radius: 8px;
-  margin-right: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .chat-section h1 {
@@ -67,21 +75,18 @@
   background-color: var(--background);
   border: 1px solid var(--gray-alpha-200);
   border-radius: 8px;
-  padding: 42px 15px 12px 25px;
-  height: 600px;
+  padding: 20px 15px 12px 25px;
+  flex: 1;
   margin-top: 32px;
-  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 15px;
+  overflow: hidden;
 }
 
 .footer {
   grid-row-start: 3;
   display: flex;
   gap: 24px;
-  /* padding: 16px; */
 }
 
 .footer a {
@@ -95,7 +100,7 @@
 }
 
 .divider {
-  width: Calc(100% - 40px);
+  width: calc(100% - 40px);
   border: none;
   height: 2px;
   background: #d9d9d9;
@@ -176,24 +181,53 @@
   }
 }
 
-@media (max-width: 600px) {
+/* ... 기존 스타일 유지 ... */
+
+@media (max-width: 768px) {
+  .page {
+    height: auto;
+    min-height: 100vh;
+  }
+
   .main {
     flex-direction: column;
     gap: 16px;
+    padding: 16px;
+    height: auto;
   }
 
   .chart-section,
   .chat-section {
-    margin: 0;
     width: 100%;
+    height: auto;
+    max-height: none;
+    margin: 0;
     padding: 16px;
+    box-sizing: border-box;
   }
 
   .chart-box {
-    height: 400px;
+    height: 300px;
+    /* 차트의 고정 높이 설정 */
+    overflow: auto;
   }
 
-  .chat-section {
-    margin-top: 20px;
+  .chat-placeholder {
+    height: 400px;
+    /* 채팅 영역의 고정 높이 설정 */
+    margin-top: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .checkbox-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .label {
+    width: calc(50% - 8px);
   }
 }

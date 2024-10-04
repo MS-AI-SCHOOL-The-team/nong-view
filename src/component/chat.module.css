@@ -1,9 +1,18 @@
 .chatArea {
-    flex-grow: 1;
+    flex: 1;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.messageList {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 10px;
 }
 
 .form {
+    margin-top: 20px;
     position: relative;
 }
 
@@ -40,15 +49,14 @@
 .suggestions {
     display: flex;
     flex-direction: column;
-    height: 100%;
-    justify-content: end;
     gap: 1rem;
-    box-sizing: border-box;
     padding-bottom: 5px;
+    height: Calc(100% - 10px);
+    justify-content: flex-end;
 }
 
 .suggestionButton {
-    width: Calc(100% - 5px);
+    width: calc(100% - 5px);
     text-align: left;
     background-color: #f3f4f6;
     padding: 0.5rem;
@@ -56,4 +64,57 @@
     border: none;
     cursor: pointer;
     box-shadow: 5px 5px 5px #c2c2c2;
+}
+
+.chatArea {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+
+.messageList {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.form {
+    margin-top: 10px;
+    flex-shrink: 0;
+    /* 폼 영역이 줄어들지 않도록 설정 */
+}
+
+.textbox {
+    width: 100%;
+    border: 2px solid #a3caeb;
+    box-sizing: border-box;
+    border-radius: 12px;
+    padding: 15px;
+    resize: none;
+    max-height: 100px;
+    /* 텍스트 영역의 최대 높이 설정 */
+}
+
+@media (max-width: 768px) {
+    .chatArea {
+        height: 400px;
+        /* 모바일에서 채팅 영역 높이 고정 */
+        max-height: 50vh;
+        /* 화면 높이의 50%를 넘지 않도록 설정 */
+    }
+
+    .messageList {
+        max-height: calc(100% - 120px);
+        /* 입력 폼과 여유 공간 고려 */
+    }
+
+    .form {
+        margin-top: 10px;
+    }
+
+    .textbox {
+        max-height: 80px;
+        /* 모바일에서 텍스트 영역 높이 제한 */
+    }
 }
