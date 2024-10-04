@@ -1,4 +1,5 @@
-.chat-wrapper {
+.chatArea {
+    flex-grow: 1;
     overflow-y: auto;
 }
 
@@ -34,4 +35,22 @@
 
 .form>button:disabled {
     opacity: 50%;
+}
+
+.suggestions {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: end;
+    gap: 0.5rem;
+}
+
+.suggestionButton {
+    width: 100%;
+    text-align: left;
+    background-color: #f3f4f6;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    border: none;
+    cursor: pointer;
 }

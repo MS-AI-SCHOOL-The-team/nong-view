@@ -40,6 +40,7 @@ const TextBox = ({ value, onChange, onCtrlEnter }) => {
 export default function Chat() {
     const [messages, setMessages] = useState([]);
     const [inputValue, setInputValue] = useState('');
+    const [isSuggestionSelected, setIsSuggestionSelected] = useState(false);
     const chatWrapperRef = useRef(null);
     const formRef = useRef(null);
 
@@ -72,10 +73,30 @@ export default function Chat() {
         }
     };
 
+    const handleClickSuggestion = (suggestion) => {
+        setInputValue(suggestion);
+        setIsSuggestionSelected(true);
+        setTimeout(() => {
+            if (formRef.current) {
+                formRef.current.requestSubmit();
+            }
+        }, 0);
+    }
+
     return (
         <>
-            <section className={styles["chat-wrapper"]} ref={chatWrapperRef}>
-                {messages.map((message, index) => (
+            <section className={styles.chatArea} ref={chatWrapperRef}>
+                {messages.length === 0 ? <article className={styles.suggestions}>
+                    <button className={styles.suggestionButton} onClick={() => handleClickSuggestion("겨울철 양파의 가격 전망을 알려주세요")} disabled={isSuggestionSelected}>
+                        겨울철 양파의 가격 전망을 알려주세요
+                    </button>
+                    <button className={styles.suggestionButton} onClick={() => handleClickSuggestion("이번 주 사과 가격 변동이 클까요?")} disabled={isSuggestionSelected}>
+                        이번 주 사과 가격 변동이 클까요?
+                    </button>
+                    <button className={styles.suggestionButton} onClick={() => handleClickSuggestion("최근에 비가 왔는데, 건고추의 가격에 영향을 줄까요?")} disabled={isSuggestionSelected}>
+                        최근에 비가 왔는데, 건고추의 가격에 영향을 줄까요?
+                    </button>
+                </article> : messages.map((message, index) => (
                     <article key={index}>
                         <h3>{message.role}</h3>
                         <p>{message.content}</p>
