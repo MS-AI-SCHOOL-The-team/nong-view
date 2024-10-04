@@ -41,12 +41,12 @@ export default function Chat() {
     const [messages, setMessages] = useState([]);
     const [inputValue, setInputValue] = useState('');
     const [isSuggestionSelected, setIsSuggestionSelected] = useState(false);
-    const chatWrapperRef = useRef(null);
+    const messageListRef = useRef(null);
     const formRef = useRef(null);
 
     useEffect(() => {
-        if (chatWrapperRef.current) {
-            chatWrapperRef.current.scrollTop = chatWrapperRef.current.scrollHeight;
+        if (messageListRef.current) {
+            messageListRef.current.scrollTop = messageListRef.current.scrollHeight;
         }
     }, [messages]);
 
@@ -59,7 +59,6 @@ export default function Chat() {
 
         try {
             const response = await postChat(question);
-
             setMessages(prev => [...prev, { role: '농뷰 AI', content: response.choices[0].message.content }]);
         } catch (error) {
             console.error('Error posting chat:', error);
@@ -84,25 +83,29 @@ export default function Chat() {
     }
 
     return (
-        <>
-            <section className={styles.chatArea} ref={chatWrapperRef}>
-                {messages.length === 0 ? <article className={styles.suggestions}>
-                    <button className={styles.suggestionButton} onClick={() => handleClickSuggestion("겨울철 양파의 가격 전망을 알려주세요")} disabled={isSuggestionSelected}>
-                        겨울철 양파의 가격 전망을 알려주세요
-                    </button>
-                    <button className={styles.suggestionButton} onClick={() => handleClickSuggestion("이번 주 사과 가격 변동이 클까요?")} disabled={isSuggestionSelected}>
-                        이번 주 사과 가격 변동이 클까요?
-                    </button>
-                    <button className={styles.suggestionButton} onClick={() => handleClickSuggestion("최근에 비가 왔는데, 건고추의 가격에 영향을 줄까요?")} disabled={isSuggestionSelected}>
-                        최근에 비가 왔는데, 건고추의 가격에 영향을 줄까요?
-                    </button>
-                </article> : messages.map((message, index) => (
-                    <article key={index}>
-                        <h3>{message.role}</h3>
-                        <p>{message.content}</p>
+        <div className={styles.chatArea}>
+            <div className={styles.messageList} ref={messageListRef}>
+                {messages.length === 0 ? (
+                    <article className={styles.suggestions}>
+                        <button className={styles.suggestionButton} onClick={() => handleClickSuggestion("겨울철 양파의 가격 전망을 알려주세요")} disabled={isSuggestionSelected}>
+                            겨울철 양파의 가격 전망을 알려주세요
+                        </button>
+                        <button className={styles.suggestionButton} onClick={() => handleClickSuggestion("이번 주 사과 가격 변동이 클까요?")} disabled={isSuggestionSelected}>
+                            이번 주 사과 가격 변동이 클까요?
+                        </button>
+                        <button className={styles.suggestionButton} onClick={() => handleClickSuggestion("최근에 비가 왔는데, 건고추의 가격에 영향을 줄까요?")} disabled={isSuggestionSelected}>
+                            최근에 비가 왔는데, 건고추의 가격에 영향을 줄까요?
+                        </button>
                     </article>
-                ))}
-            </section>
+                ) : (
+                    messages.map((message, index) => (
+                        <article key={index}>
+                            <h3>{message.role}</h3>
+                            <p>{message.content}</p>
+                        </article>
+                    ))
+                )}
+            </div>
             <form className={styles.form} action={handleSubmit} ref={formRef}>
                 <TextBox
                     value={inputValue}
@@ -111,6 +114,6 @@ export default function Chat() {
                 />
                 <ChatButton />
             </form>
-        </>
+        </div>
     );
 }
