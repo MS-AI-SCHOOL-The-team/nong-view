@@ -3,7 +3,7 @@
 import ApexCharts from 'apexcharts'
 import { useEffect } from 'react'
 
-export default function () {
+export default function ({ selectedItem }) {
 
     useEffect(() => {
         var options = {
@@ -24,7 +24,7 @@ export default function () {
 
         if (document.querySelector("#chart").children.length === 0)
             chart.render();
-    }, []);
+    }, [selectedItem]);
 
     return <div id="chart" />
 }
