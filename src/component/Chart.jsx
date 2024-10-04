@@ -9,7 +9,7 @@ export default function ({ selectedItem }) {
         var options = {
             chart: {
                 type: 'bar',
-                height: '600px'
+                height: '100%'  // 반응형 높이 설정
             },
             series: [{
                 name: 'sales',

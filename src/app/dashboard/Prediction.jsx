@@ -19,7 +19,7 @@ export default function () {
     };
 
     return (
-        <section className={styles["chart-section"]}>
+        <>
             <h1>농산물 가격 AI 예측</h1>
             <p className={styles.note}>※ 중복 선택 불가</p>
             <div className={styles["checkbox-container"]}>
@@ -38,10 +38,8 @@ export default function () {
                 ))}
             </div>
             <article className={styles["chart-box"]}>
-                <div className={styles["chart-placeholder"]}>
-                    <Chart selectedItem={selectedItem} />
-                </div>
+                <Chart selectedItem={selectedItem} />
             </article>
-        </section>
+        </>
     );
 }

@@ -81,7 +81,7 @@
   grid-row-start: 3;
   display: flex;
   gap: 24px;
-  padding: 16px;
+  /* padding: 16px; */
 }
 
 .footer a {
@@ -173,5 +173,27 @@
 @media (prefers-color-scheme: dark) {
   .logo {
     filter: invert();
+  }
+}
+
+@media (max-width: 600px) {
+  .main {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .chart-section,
+  .chat-section {
+    margin: 0;
+    width: 100%;
+    padding: 16px;
+  }
+
+  .chart-box {
+    height: 400px;
+  }
+
+  .chat-section {
+    margin-top: 20px;
   }
 }

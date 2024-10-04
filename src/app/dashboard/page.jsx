@@ -11,11 +11,13 @@ export default function () {
       </header>
       <hr className={styles.divider} />
       <main className={styles.main}>
-        <Prediction />
+        <section className={styles["chart-section"]}>
+          <Prediction />
+        </section>
         <section className={styles["chat-section"]}>
           <h1>AI 채팅</h1>
           <p className={styles["chat-info"]}>
-            <span className={styles["chat-info"]}>농산물 가격 데이터를 기반으로 답변해드립니다</span>
+            <span>농산물 가격 데이터를 기반으로 답변해드립니다</span>
             <br />
             <br />
           </p>
