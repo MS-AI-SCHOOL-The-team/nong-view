@@ -118,3 +118,20 @@
         /* 모바일에서 텍스트 영역 높이 제한 */
     }
 }
+
+.manual {
+    width: 50%;
+    height: 50%;
+    z-index: 20;
+    border: none;
+    border-radius: 30px;
+}
+
+.manual::backdrop {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background: rgba(0, 0, 0, 0.2);
+}

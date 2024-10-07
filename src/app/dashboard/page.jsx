@@ -2,6 +2,7 @@ import Image from "next/image";
 import Chat from "../../component/Chat";
 import styles from "./page.module.css";
 import Prediction from "./Prediction";
+import ChatManual from "@/component/ChatManual";
 
 export default function () {
   return (
@@ -16,6 +17,7 @@ export default function () {
         </section>
         <section className={styles["chat-section"]}>
           <h1>AI 채팅</h1>
+          <ChatManual />
           <p className={styles["chat-info"]}>
             <span>농산물 가격 데이터를 기반으로 답변해드립니다</span>
             <br />
