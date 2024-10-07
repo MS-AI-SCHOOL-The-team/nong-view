@@ -119,6 +119,16 @@
     }
 }
 
+.manualButton {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border-radius: 1px solid #000;
+    background-color: transparent;
+    margin-top: 30px;
+    cursor: pointer;
+}
+
 .manual {
     width: 50%;
     height: 50%;

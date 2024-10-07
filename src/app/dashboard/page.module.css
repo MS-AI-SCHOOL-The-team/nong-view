@@ -5,7 +5,7 @@
   color: #333;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(to bottom, #a7daf1 1%, #fff 20%);
+  background: #f6fdf6;
 }
 
 .header {
@@ -54,7 +54,7 @@
 
 .chat-section {
   flex: 1;
-  background-color: #96beea;
+  background-color: #afeeb7;
   padding: 24px;
   border-radius: 8px;
   display: flex;
@@ -62,7 +62,12 @@
   overflow: hidden;
 }
 
-.chat-section h1 {
+.chatHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.chatTitle {
   margin-top: 30px;
   margin-bottom: 12px;
 }
