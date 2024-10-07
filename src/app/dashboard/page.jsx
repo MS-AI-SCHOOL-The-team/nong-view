@@ -16,8 +16,10 @@ export default function () {
           <Prediction />
         </section>
         <section className={styles["chat-section"]}>
-          <h1>AI 채팅</h1>
-          <ChatManual />
+          <div className={styles.chatHeader}>
+            <h1 className={styles.chatTitle}>AI 채팅</h1>
+            <ChatManual />
+          </div>
           <p className={styles["chat-info"]}>
             <span>농산물 가격 데이터를 기반으로 답변해드립니다</span>
             <br />

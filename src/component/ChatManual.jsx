@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import style from "./chat.module.css";
+import styles from "./chat.module.css";
 
 export default function () {
     const dialogRef = useRef();
@@ -15,11 +15,11 @@ export default function () {
     }
 
     return <>
-        <dialog ref={dialogRef} className={style.manual}>
-            <h3>AI 채팅 사용 방법</h3>
+        <dialog className={styles.manual} ref={dialogRef} aria-labelledby="manualTitle">
+            <h3 id="manualTitle">AI 채팅 사용 방법</h3>
             <p>채팅 사용 방법에 대한 가이드 채팅 사용 방법에 대한 가이드 채팅 사용 방법에 대한 가이드채팅 사용 방법에 대한 가이드채팅 사용 방법에 대한 가이드채팅 사용 방법에 대한 가이드채팅 사용 방법에 대한 가이드채팅 사용 방법에 대한 가이드채팅 사용 방법에 대한 가이드채팅 사용 방법에 대한 가이드채팅 사용 방법에 대한 가이드</p>
             <button type="button" onClick={handleCloseManual}>닫기</button>
-        </dialog>
-        <button type="button" onClick={handleOpenManual}>도움말</button>
+        </dialog >
+        <button className={styles.manualButton} type="button" title="도움말" aria-label="도움말 열기" onClick={handleOpenManual}>?</button>
     </>
 }
