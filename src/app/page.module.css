@@ -16,25 +16,30 @@
 }
 
 .header {
-    text-align: center;
     box-sizing: border-box;
     padding-top: 70px;
     flex: 1;
-}
-
-.subTitle {
-    margin: 0;
-    font-weight: normal;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .title {
     margin: 1vh 0;
     font-weight: bold;
+    order: 2;
+}
+
+.subTitle {
+    margin: 0;
+    font-weight: normal;
+    order: 1;
 }
 
 .logo {
     margin: 10px 0;
     text-align: center;
+    order: 3;
 }
 
 .logo img {

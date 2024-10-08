@@ -6,8 +6,8 @@ export default function () {
     return <body className={styles.body}>
         <div className={styles.container}>
             <header className={styles.header}>
-                <h2 className={styles.subTitle}>머신러닝, AI 기술을 활용한</h2>
                 <h1 className={styles.title}>“농산물 가격 예측 정보” 제공 시스템</h1>
+                <h2 className={styles.subTitle}>머신러닝, AI 기술을 활용한</h2>
                 <div className={styles.logo}>
                     <Image src="/logo.png" alt="농뷰 로고" width={380} height={163.125} quality={100} unoptimized />
                 </div>
