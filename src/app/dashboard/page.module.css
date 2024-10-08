@@ -215,6 +215,7 @@
     height: 300px;
     /* 차트의 고정 높이 설정 */
     overflow: auto;
+    flex: none;
   }
 
   .chat-placeholder {
@@ -224,6 +225,7 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    flex: none;
   }
 
   .checkbox-container {
