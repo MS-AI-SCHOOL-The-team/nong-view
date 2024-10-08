@@ -29,7 +29,10 @@ export default function ({ selectedItem }) {
             chart: {
                 height: '100%',
                 type: 'line',
-                stacked: false
+                stacked: false,
+                toolbar: {
+                    show: false
+                }
             },
             dataLabels: {
                 enabled: false

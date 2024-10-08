@@ -4,8 +4,6 @@
 
 .container {
     font-family: 'Pretendard', sans-serif;
-    background: url("/home_bg.jpg") no-repeat center center;
-    background-size: cover;
     height: 100vh;
     width: 100vw;
     display: flex;
@@ -15,26 +13,38 @@
     position: relative;
 }
 
+.backgroud {
+    object-fit: cover;
+    z-index: -1;
+}
+
 .header {
-    text-align: center;
     box-sizing: border-box;
     padding-top: 70px;
     flex: 1;
-}
-
-.subTitle {
-    margin: 0;
-    font-weight: normal;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .title {
     margin: 1vh 0;
     font-weight: bold;
+    order: 2;
+    text-align: center;
+}
+
+.subTitle {
+    margin: 0;
+    font-weight: normal;
+    order: 1;
+    text-align: center;
 }
 
 .logo {
     margin: 10px 0;
     text-align: center;
+    order: 3;
 }
 
 .logo img {
