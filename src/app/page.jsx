@@ -5,6 +5,7 @@ import Link from "next/link";
 export default function () {
     return <body className={styles.body}>
         <div className={styles.container}>
+            <Image className={styles.backgroud} src="/home_bg.jpg" fill={true} alt="배경 이미지" quality={100} unoptimized />
             <header className={styles.header}>
                 <h1 className={styles.title}>“농산물 가격 예측 정보” 제공 시스템</h1>
                 <h2 className={styles.subTitle}>머신러닝, AI 기술을 활용한</h2>

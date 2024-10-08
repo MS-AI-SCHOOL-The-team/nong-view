@@ -4,8 +4,6 @@
 
 .container {
     font-family: 'Pretendard', sans-serif;
-    background: url("/home_bg.jpg") no-repeat center center;
-    background-size: cover;
     height: 100vh;
     width: 100vw;
     display: flex;
@@ -13,6 +11,11 @@
     color: #333;
     overflow: hidden;
     position: relative;
+}
+
+.backgroud {
+    object-fit: cover;
+    z-index: -1;
 }
 
 .header {
@@ -28,12 +31,14 @@
     margin: 1vh 0;
     font-weight: bold;
     order: 2;
+    text-align: center;
 }
 
 .subTitle {
     margin: 0;
     font-weight: normal;
     order: 1;
+    text-align: center;
 }
 
 .logo {
