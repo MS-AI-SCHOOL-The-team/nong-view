@@ -145,3 +145,17 @@
     left: 0px;
     background: rgba(0, 0, 0, 0.2);
 }
+
+.closeManualButtonArea {
+    text-align: center;
+    margin: 40px 0 0;
+}
+
+.closeManualButton {
+    width: 80px;
+    height: 40px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1.1em;
+}

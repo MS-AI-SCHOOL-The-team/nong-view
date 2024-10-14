@@ -9,7 +9,7 @@ export default function () {
   return (
     <body className={styles.page}>
       <header className={styles.header}>
-        <Image src="/logo2.png" alt="농뷰 로고" width={120} height={51} quality={100} unoptimized></Image>
+        <Image src="/logo2.png" alt="농뷰 로고" width={120} height={51} quality={100} unoptimized />
       </header>
       <hr className={styles.divider} />
       <main className={styles.main}>
