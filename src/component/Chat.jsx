@@ -37,7 +37,7 @@ const TextBox = ({ value, onChange, onCtrlEnter }) => {
     );
 };
 
-export default function Chat() {
+export default function Chat({ suggestionMessages }) {
     const [messages, setMessages] = useState([]);
     const [inputValue, setInputValue] = useState('');
     const [isSuggestionSelected, setIsSuggestionSelected] = useState(false);
@@ -87,15 +87,9 @@ export default function Chat() {
             <div className={styles.messageList} ref={messageListRef}>
                 {messages.length === 0 ? (
                     <article className={styles.suggestions}>
-                        <button className={styles.suggestionButton} onClick={() => handleClickSuggestion("겨울철 양파의 가격 전망을 알려주세요")} disabled={isSuggestionSelected}>
-                            겨울철 양파의 가격 전망을 알려주세요
-                        </button>
-                        <button className={styles.suggestionButton} onClick={() => handleClickSuggestion("이번 주 사과 가격 변동이 클까요?")} disabled={isSuggestionSelected}>
-                            이번 주 사과 가격 변동이 클까요?
-                        </button>
-                        <button className={styles.suggestionButton} onClick={() => handleClickSuggestion("최근에 비가 왔는데, 건고추의 가격에 영향을 줄까요?")} disabled={isSuggestionSelected}>
-                            최근에 비가 왔는데, 건고추의 가격에 영향을 줄까요?
-                        </button>
+                        {suggestionMessages.map((message) => <button className={styles.suggestionButton} onClick={() => handleClickSuggestion(message)} disabled={isSuggestionSelected}>
+                            {message}
+                        </button>)}
                     </article>
                 ) : (
                     messages.map((message, index) => (
