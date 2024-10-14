@@ -1,5 +1,4 @@
-import localFont from "next/font/local";
-import Script from 'next/script'
+import Script from 'next/script';
 
 import "./globals.css";
 
@@ -11,6 +10,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <meta name="naver-site-verification" content={process.env.NEXT_PUBLIC_NAVER_SEARCH_ADVISOR} />
       <Script id="microsoft-clarity-script" strategy="afterInteractive">
         {`
           (function(c,l,a,r,i,t,y){
