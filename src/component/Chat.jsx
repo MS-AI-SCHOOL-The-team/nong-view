@@ -76,9 +76,7 @@ export default function Chat() {
         "최근 유가 상승이 농산물 가격에 어떤 영향을 줄까? ",
     ];
 
-
     useEffect(() => {
-
         setRandomThreeItems(getRandomItems(suggestionMessages, 3));
     }, []);
 
