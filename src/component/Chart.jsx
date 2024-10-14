@@ -1,30 +1,39 @@
 "use client"
 
 import ApexCharts from 'apexcharts'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
 export default function ({ selectedItem }) {
+    const chartRef = useRef(null);
+
+    const selectedItems = {
+        "배추": [1.4, 2, 2.5, 1.5, 0, 0, 0],
+        "무": [3.8, 2.8, 2.5, 1.5, 0, 0, 0]
+    }
 
     useEffect(() => {
         // 추가 항목들을 위한 별도의 데이터 배열
         var additionalData = [
-            { name: 'New Item 1', data: [5, 10, 15, 20, 25, 30, 35] },
-            { name: 'New Item 2', data: [2, 4, 6, 8, 10, 12, 14] }
+            { name: '특', data: [5, 10, 15, 20, 25, 30, 35] },
+            { name: '상', data: [2, 4, 6, 8, 10, 12, 14] },
+            { name: '중', data: [2, 4, 6, 8, 10, 12, 14] },
+            { name: '하', data: [2, 4, 6, 8, 10, 12, 14] },
+            { name: '6등급', data: [2, 4, 6, 8, 10, 12, 14] }
         ];
 
         var options = {
             series: [{
-                name: 'Income',
-                type: 'column',
-                data: [1.4, 2, 2.5, 1.5, 2.5, 2.8, 3.8]
+                name: '현재가격',
+                type: 'line',
+                data: selectedItems[selectedItem] || []
             }, {
-                name: 'Cashflow',
-                type: 'column',
+                name: '예측가격',
+                type: 'line',
                 data: [1.1, 3, 3.1, 4, 4.1, 4.9, 6.5]
             }, {
-                name: 'Revenue',
-                type: 'line',
-                data: [20, 29, 37, 36, 44, 45, 50]
+                name: '거래량',
+                type: 'column',
+                data: [20, 29, 37, 36, 0, 0, 0]
             }],
             chart: {
                 height: '100%',
@@ -41,12 +50,12 @@ export default function ({ selectedItem }) {
                 width: [1, 1, 4]
             },
             title: {
-                text: 'XYZ - Stock Analysis (2009 - 2016)',
+                text: `${selectedItem} 가격, 거래량(9월 중순 - 11월 중순)`,
                 align: 'left',
                 offsetX: 110
             },
             xaxis: {
-                categories: ['9월 상순', '9월 중순', '9월 하순', '10월 상순', '10월 중순', '10월 하순', '11월 상순'],
+                categories: ['9월 중순', '9월 하순', '10월 상순', '10월 중순', '10월 하순', '11월 상순', '11월 중순'],
             },
             yaxis: [
                 {
@@ -64,7 +73,7 @@ export default function ({ selectedItem }) {
                         }
                     },
                     title: {
-                        text: "Income (thousand crores)",
+                        text: "가격 (원/kg)",
                         style: {
                             color: '#008FFB',
                         }
@@ -72,28 +81,6 @@ export default function ({ selectedItem }) {
                     tooltip: {
                         enabled: true
                     }
-                },
-                {
-                    seriesName: 'Cashflow',
-                    opposite: true,
-                    axisTicks: {
-                        show: true,
-                    },
-                    axisBorder: {
-                        show: true,
-                        color: '#00E396'
-                    },
-                    labels: {
-                        style: {
-                            colors: '#00E396',
-                        }
-                    },
-                    title: {
-                        text: "Operating Cashflow (thousand crores)",
-                        style: {
-                            color: '#00E396',
-                        }
-                    },
                 },
                 {
                     seriesName: 'Revenue',
@@ -111,7 +98,7 @@ export default function ({ selectedItem }) {
                         },
                     },
                     title: {
-                        text: "Revenue (thousand crores)",
+                        text: "거래량 (kg)",
                         style: {
                             color: '#FEB019',
                         }
@@ -157,10 +144,21 @@ export default function ({ selectedItem }) {
             }
         };
 
-        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        if (!chartRef.current) {
+            chartRef.current = new ApexCharts(document.querySelector("#chart"), options);
 
-        if (document.querySelector("#chart").children.length === 0)
-            chart.render();
+            if (document.querySelector("#chart").children.length === 0)
+                chartRef.current.render();
+        } else {
+            chartRef.current.updateOptions(options);
+        }
+
+        return () => {
+            if (chartRef.current) {
+                chartRef.current.destroy();
+                chartRef.current = null
+            }
+        }
     }, [selectedItem]);
 
     return <div id="chart" />
