@@ -1,8 +1,9 @@
 "use client"
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./page.module.css";
 import dynamic from "next/dynamic";
+import { getChartData } from "@/actions/chart";
 
 const Chart = dynamic(() => import("../../component/Chart"), { ssr: false });
 
@@ -10,9 +11,17 @@ const items = [
     "배추", "무", "양파", "사과", "배", "건고추", "깐마늘", "감자", "대파", "상추"
 ];
 
-
 export default function () {
     const [selectedItem, setSelectedItem] = useState("배추");
+
+    useEffect(() => {
+        async function fetchData() {
+            const data = await getChartData(selectedItem);
+            console.log(data);
+        }
+
+        fetchData();
+    }, [selectedItem]);
 
     const handleItemChange = (event) => {
         setSelectedItem(event.target.id);
