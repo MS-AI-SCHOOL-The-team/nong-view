@@ -7,6 +7,8 @@ export default function ({ chartData }) {
     const chartRef = useRef(null);
 
     useEffect(() => {
+        if (!chartData) return;
+
         // 데이터 전처리 및 y축 범위 계산
         const currentPrices = chartData.평균가격?.map(price => parseFloat(price)) || [];
         const predictionPrices = chartData.예측가격?.map(price => parseFloat(price)) || [];
