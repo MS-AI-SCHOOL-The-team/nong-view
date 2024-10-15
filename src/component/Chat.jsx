@@ -123,7 +123,7 @@ export default function Chat() {
             <div className={styles.messageList} ref={messageListRef}>
                 {messages.length === 0 ? (
                     <article className={styles.suggestions}>
-                        {randomThreeItems.map((message, index) => <button id={index} className={styles.suggestionButton} onClick={() => handleClickSuggestion(message)} disabled={isSuggestionSelected}>
+                        {randomThreeItems.map((message, index) => <button key={index} className={styles.suggestionButton} onClick={() => handleClickSuggestion(message)} disabled={isSuggestionSelected}>
                             {message}
                         </button>)}
                     </article>
