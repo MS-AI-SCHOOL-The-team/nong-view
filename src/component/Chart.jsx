@@ -7,10 +7,18 @@ export default function ({ chartData }) {
     const chartRef = useRef(null);
 
     useEffect(() => {
+        // 데이터 전처리 및 y축 범위 계산
+        const currentPrices = chartData.평균가격?.map(price => parseFloat(price)) || [];
+        const predictionPrices = chartData.예측가격?.map(price => parseFloat(price)) || [];
+        const allPrices = [...currentPrices, ...predictionPrices].filter(price => !isNaN(price));
+        const minPrice = Math.min(...allPrices);
+        const maxPrice = Math.max(...allPrices);
+        const priceRange = maxPrice - minPrice;
+
         var options = {
             series: [
-                { name: '현재가격', type: 'line', data: chartData.평균가격 || [] },
-                { name: '예측가격', type: 'line', data: chartData.예측가격 || [] },
+                { name: '현재가격', type: 'line', data: currentPrices },
+                { name: '예측가격', type: 'line', data: predictionPrices },
                 { name: '거래량', type: 'column', data: chartData.총거래물량 || [] },
             ],
             chart: {
@@ -32,11 +40,16 @@ export default function ({ chartData }) {
                 {
                     title: { text: "가격 (원/kg)", style: { color: '#008FFB' } },
                     labels: { style: { colors: '#008FFB' } },
+                    min: Math.max(0, minPrice - priceRange * 0.1),
+                    max: maxPrice + priceRange * 0.1,
                 },
                 {
                     title: { text: "가격 (원/kg)", style: { color: '#00E396' } },
                     labels: { style: { colors: '#00E396' } },
+                    min: Math.max(0, minPrice - priceRange * 0.1),
+                    max: maxPrice + priceRange * 0.1,
                     opposite: true,
+                    show: false,
                 },
                 {
                     title: { text: "거래량 (kg)", style: { color: '#FEB019', } },
