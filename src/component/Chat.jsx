@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useRef, useEffect } from 'react';
-import styles from "./chat.module.css";
-import postChat from "../actions/chat";
+import { useEffect, useRef, useState } from 'react';
 import { useFormStatus } from 'react-dom';
+import postChat from "../actions/chat";
+import styles from "./chat.module.css";
 
 const ChatButton = () => {
     const { pending } = useFormStatus();
@@ -57,23 +57,23 @@ export default function Chat() {
     }
 
     const suggestionMessages = [
-        "다음 달 양파의 평균 가격은 어떻게 될까? ",
-        "겨울철 배추의 가격 전망은 어떻게 돼? ",
-        "최근에 비가 왔는데, 사과 가격에 영향을 줄까? ",
-        "월별 농산물 가격 변동 패턴을 알려줘. ",
-        "다음 주 감자의 가격은 어떻게 될까? ",
-        "상추 가격은 언제부터 오를까? ",
-        "이번 달 무의 가격 변동은 어떨까? ",
-        "이번 해 농산물 가격 트렌드를 알려줘. ",
-        "코로나19가 대파 가격에 미친 영향은 뭐야? ",
-        "수출 증가가 건고추 가격에 영향을 줄까? ",
-        "10월에 배추의 평균 가격은 어떻게 될까? ",
-        "추석 이후 사과 가격은 어떤 변화가 있을까? ",
-        "최근 태풍이 무 가격에 영향을 줬을까? ",
-        "이번 주 대파 가격은 얼마나 오를까? ",
-        "김장철을 앞두고 배추 가격은 언제부터 안정될까? ",
-        "10월 말에 감자 가격이 하락할 가능성이 있을까? ",
-        "최근 유가 상승이 농산물 가격에 어떤 영향을 줄까? ",
+        "다음 달 양파의 평균 가격은 어떻게 될까?",
+        "겨울철 배추의 가격 전망은 어떻게 돼?",
+        "최근에 비가 왔는데, 사과 가격에 영향을 줄까?",
+        "월별 농산물 가격 변동 패턴을 알려줘.",
+        "다음 주 감자의 가격은 어떻게 될까?",
+        "상추 가격은 언제부터 오를까?",
+        "이번 달 무의 가격 변동은 어떨까?",
+        "이번 해 농산물 가격 트렌드를 알려줘.",
+        "코로나19가 대파 가격에 미친 영향은 뭐야?",
+        "수출 증가가 건고추 가격에 영향을 줄까?",
+        "10월에 배추의 평균 가격은 어떻게 될까?",
+        "추석 이후 사과 가격은 어떤 변화가 있을까?",
+        "최근 태풍이 무 가격에 영향을 줬을까?",
+        "이번 주 대파 가격은 얼마나 오를까?",
+        "김장철을 앞두고 배추 가격은 언제부터 안정될까?",
+        "10월 말에 감자 가격이 하락할 가능성이 있을까?",
+        "최근 유가 상승이 농산물 가격에 어떤 영향을 줄까?",
     ];
 
     useEffect(() => {
@@ -123,7 +123,7 @@ export default function Chat() {
             <div className={styles.messageList} ref={messageListRef}>
                 {messages.length === 0 ? (
                     <article className={styles.suggestions}>
-                        {randomThreeItems.map((message) => <button className={styles.suggestionButton} onClick={() => handleClickSuggestion(message)} disabled={isSuggestionSelected}>
+                        {randomThreeItems.map((message, index) => <button id={index} className={styles.suggestionButton} onClick={() => handleClickSuggestion(message)} disabled={isSuggestionSelected}>
                             {message}
                         </button>)}
                     </article>
