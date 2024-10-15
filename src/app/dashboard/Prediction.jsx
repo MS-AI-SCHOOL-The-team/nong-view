@@ -8,16 +8,17 @@ import { getChartData } from "@/actions/chart";
 const Chart = dynamic(() => import("../../component/Chart"), { ssr: false });
 
 const items = [
-    "배추", "무", "양파", "사과", "배", "건고추", "깐마늘", "감자", "대파", "상추"
+    "배추", "무", "양파", "사과", "배", "건고추", "마늘", "감자", "대파", "상추"
 ];
 
 export default function () {
     const [selectedItem, setSelectedItem] = useState("배추");
+    const [chartData, setChartData] = useState(null);
 
     useEffect(() => {
         async function fetchData() {
             const data = await getChartData(selectedItem);
-            console.log(data);
+            setChartData(data);
         }
 
         fetchData();
@@ -47,7 +48,7 @@ export default function () {
                 ))}
             </div>
             <article className={styles["chart-box"]}>
-                <Chart selectedItem={selectedItem} />
+                <Chart chartData={chartData} />
             </article>
         </>
     );

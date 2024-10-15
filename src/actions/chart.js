@@ -43,10 +43,10 @@ function getDateRange(currentDate) {
     return result;
 }
 
-export async function getChartData() {
+export async function getChartData(item) {
     try {
         // 실제 데이터 CSV 파일 읽기
-        const filePath = path.join(process.cwd(), 'src/output', 'processed_대파.csv');
+        const filePath = path.join(process.cwd(), 'src/output', `processed_${item}.csv`);
         const fileContent = await fs.readFile(filePath, 'utf-8');
         const records = await parseCSV(fileContent, { columns: true, skip_empty_lines: true });
 
@@ -87,9 +87,9 @@ export async function getChartData() {
         });
 
         // 대파 예측값 찾기 및 처리
-        const 대파예측 = predictionRecords.find(record => record.품목 === '대파');
-        if (대파예측) {
-            const predictionColumns = Object.keys(대파예측).filter(key => key !== '품목');
+        const prediction = predictionRecords.find(record => record.품목 === item);
+        if (prediction) {
+            const predictionColumns = Object.keys(prediction).filter(key => key !== '품목');
             const currentIndex = predictionColumns.indexOf('T');
 
             if (currentIndex !== -1) {
@@ -97,7 +97,7 @@ export async function getChartData() {
                 relevantPredictions.forEach((predCol, index) => {
                     const period = periods[index];
                     if (processedData[period]) {
-                        processedData[period].예측가격 = parseFloat(대파예측[predCol]) || 0;
+                        processedData[period].예측가격 = parseFloat(prediction[predCol]) || 0;
                     }
                 });
             }

@@ -3,117 +3,50 @@
 import ApexCharts from 'apexcharts'
 import { useEffect, useRef } from 'react'
 
-export default function ({ selectedItem }) {
+export default function ({ chartData }) {
     const chartRef = useRef(null);
 
-    const selectedItems = {
-        "배추": [1.4, 2, 2.5, 1.5, 0, 0, 0],
-        "무": [3.8, 2.8, 2.5, 1.5, 0, 0, 0]
-    }
-
     useEffect(() => {
-        // 추가 항목들을 위한 별도의 데이터 배열
-        var additionalData = [
-            { name: '특', data: [5, 10, 15, 20, 25, 30, 35] },
-            { name: '상', data: [2, 4, 6, 8, 10, 12, 14] },
-            { name: '중', data: [2, 4, 6, 8, 10, 12, 14] },
-            { name: '하', data: [2, 4, 6, 8, 10, 12, 14] },
-            { name: '6등급', data: [2, 4, 6, 8, 10, 12, 14] }
-        ];
-
         var options = {
-            series: [{
-                name: '현재가격',
-                type: 'line',
-                data: selectedItems[selectedItem] || []
-            }, {
-                name: '예측가격',
-                type: 'line',
-                data: [1.1, 3, 3.1, 4, 4.1, 4.9, 6.5]
-            }, {
-                name: '거래량',
-                type: 'column',
-                data: [20, 29, 37, 36, 0, 0, 0]
-            }],
+            series: [
+                { name: '현재가격', type: 'line', data: chartData.평균가격 || [] },
+                { name: '예측가격', type: 'line', data: chartData.예측가격 || [] },
+                { name: '거래량', type: 'column', data: chartData.총거래물량 || [] },
+            ],
             chart: {
                 height: '100%',
                 type: 'line',
                 stacked: false,
-                toolbar: {
-                    show: false
-                }
+                toolbar: { show: false }
             },
-            dataLabels: {
-                enabled: false
-            },
+            dataLabels: { enabled: false },
             stroke: {
-                width: [1, 1, 4]
+                width: [2, 2, 4],
+                curve: 'smooth',
             },
-            title: {
-                text: `${selectedItem} 가격, 거래량(9월 중순 - 11월 중순)`,
-                align: 'left',
-                offsetX: 110
-            },
+            colors: ['#008FFB', '#00E396', '#FEB019'],
             xaxis: {
-                categories: ['9월 중순', '9월 하순', '10월 상순', '10월 중순', '10월 하순', '11월 상순', '11월 중순'],
+                categories: chartData.categories.map((date) => `${date.slice(-4, -2)}월 ${date.slice(-2) === '01' ? "상순" : date.slice(-2) === '11' ? "중순" : "하순"}`),
             },
             yaxis: [
                 {
-                    seriesName: 'Income',
-                    axisTicks: {
-                        show: true,
-                    },
-                    axisBorder: {
-                        show: true,
-                        color: '#008FFB'
-                    },
-                    labels: {
-                        style: {
-                            colors: '#008FFB',
-                        }
-                    },
-                    title: {
-                        text: "가격 (원/kg)",
-                        style: {
-                            color: '#008FFB',
-                        }
-                    },
-                    tooltip: {
-                        enabled: true
-                    }
+                    title: { text: "가격 (원/kg)", style: { color: '#008FFB' } },
+                    labels: { style: { colors: '#008FFB' } },
                 },
                 {
-                    seriesName: 'Revenue',
+                    title: { text: "가격 (원/kg)", style: { color: '#00E396' } },
+                    labels: { style: { colors: '#00E396' } },
                     opposite: true,
-                    axisTicks: {
-                        show: true,
-                    },
-                    axisBorder: {
-                        show: true,
-                        color: '#FEB019'
-                    },
-                    labels: {
-                        style: {
-                            colors: '#FEB019',
-                        },
-                    },
-                    title: {
-                        text: "거래량 (kg)",
-                        style: {
-                            color: '#FEB019',
-                        }
-                    }
+                },
+                {
+                    title: { text: "거래량 (kg)", style: { color: '#FEB019', } },
+                    labels: { style: { colors: '#FEB019', } },
+                    opposite: true,
                 },
             ],
             tooltip: {
                 shared: true,
                 intersect: false,
-                fixed: {
-                    enabled: true,
-                    position: 'topLeft',
-                    offsetY: 30,
-                    offsetX: 60
-                },
                 custom: function ({ series, seriesIndex, dataPointIndex, w }) {
                     let tooltip = '<div class="arrow_box" style="padding:10px;">';
 
@@ -125,13 +58,19 @@ export default function ({ selectedItem }) {
                         </div>`;
                     }
 
-                    w.config.series.forEach((ser, i) => {
-                        tooltip += addTooltipRow(ser.name, series[i][dataPointIndex], w.globals.colors[i]);
-                    });
+                    // 현재가격, 예측가격, 거래량 데이터 추가
+                    tooltip += addTooltipRow('현재가격', `${series[0][dataPointIndex].toFixed(0)} 원/kg`, w.globals.colors[0]);
+                    tooltip += addTooltipRow('예측가격', `${series[1][dataPointIndex].toFixed(0)} 원/kg`, w.globals.colors[1]);
+                    tooltip += addTooltipRow('거래량', `${series[2][dataPointIndex].toFixed(0)} kg`, w.globals.colors[2]);
 
-                    // 추가 항목들을 툴팁에 포함
-                    additionalData.forEach((item, i) => {
-                        tooltip += addTooltipRow(item.name, item.data[dataPointIndex], w.globals.colors[w.config.series.length + i]);
+                    // 특, 상, 중, 하 데이터 추가 (없는 경우 0으로 표시)
+                    const additionalData = ['특', '상', '중', '하'];
+                    const additionalColors = ['#FF4560', '#775DD0', '#4CAF50', '#FF9800'];
+                    additionalData.forEach((item, index) => {
+                        const value = chartData[item] && chartData[item][dataPointIndex]
+                            ? chartData[item][dataPointIndex].toFixed(0)
+                            : '0';
+                        tooltip += addTooltipRow(item, `${value} 원/kg`, additionalColors[index]);
                     });
 
                     tooltip += '</div>';
@@ -146,7 +85,6 @@ export default function ({ selectedItem }) {
 
         if (!chartRef.current) {
             chartRef.current = new ApexCharts(document.querySelector("#chart"), options);
-
             if (document.querySelector("#chart").children.length === 0)
                 chartRef.current.render();
         } else {
@@ -159,7 +97,7 @@ export default function ({ selectedItem }) {
                 chartRef.current = null
             }
         }
-    }, [selectedItem]);
+    }, [chartData]);
 
     return <div id="chart" />
 }
