@@ -11,9 +11,6 @@ const parseCSV = promisify(parse);
 const items = ["사과", "상추", "배추", "무", "양파", "대파", "감자", "건고추", "마늘"];
 const priceKeywords = ["가격", "비용", "얼마"];
 
-const historyFilePath = './src/output/chatHistory.json'; // 대화 기록을 저장할 파일 경로
-let chatHistory = []; // 대화 기록을 저장할 전역 변수
-
 // 질문에 포함된 품목을 반환하는 함수
 function getProductFromQuestion(question) {
     return items.find(item => question.includes(item)); // 일치하는 품목을 반환
@@ -38,44 +35,12 @@ async function readCSV(productName) {
     }
 }
 
-// 대화 기록을 파일에 저장하는 함수
-async function saveChatHistory() {
-    try {
-        await fs.writeFile(historyFilePath, JSON.stringify(chatHistory, null, 2));
-    } catch (error) {
-        console.error('Error saving chat history:', error);
-    }
-}
-
-// 대화 기록을 파일에서 읽는 함수
-async function loadChatHistory() {
-    try {
-        const fileContent = await fs.readFile(historyFilePath, 'utf-8');
-        chatHistory = JSON.parse(fileContent);
-    } catch (error) {
-        console.error('Error loading chat history:', error);
-        chatHistory = []; // 파일이 없거나 오류 발생 시 빈 배열로 초기화
-    }
-}
-
-// 대화 기록 업데이트 함수
-function updateChatHistory(role, content) {
-    chatHistory.push({ role, content });
-
-    if (chatHistory.length > 10) {
-        chatHistory.shift(); // 가장 오래된 항목을 제거하여 대화 내역 유지
-    }
-    saveChatHistory(); // 대화 기록 저장
-}
-
 export default async function fetchChatData(question) {
     const url = process.env.OPENAI_URL;
     const apiKey = process.env.OPENAI_KEY;
 
-    await loadChatHistory(); // 대화 기록을 불러오기
-
-    const productName = getProductFromQuestion(question);  // 질문에서 품목 추출
-    const isPrice = containsPriceKeyword(question);        // 가격 관련 키워드 포함 여부 확인
+    const productName = getProductFromQuestion(question.at(-1).content);  // 질문에서 품목 추출
+    const isPrice = containsPriceKeyword(question.at(-1).content);        // 가격 관련 키워드 포함 여부 확인
 
     let csvData = "";
 
@@ -97,15 +62,8 @@ export default async function fetchChatData(question) {
         }
     }
 
-    // 사용자의 질문을 대화 기록에 추가
-    updateChatHistory('user', question);
-
     const payload = {
         messages: [
-            ...chatHistory.map(entry => ({
-                role: entry.role,
-                content: entry.content
-            })),
             {
                 role: "system",
                 content: `
@@ -176,10 +134,7 @@ export default async function fetchChatData(question) {
                 2. 상황에 맞는 농사 정보와 조언을 제공
                 `
             },
-            {
-                role: "user",
-                content: `${question}`
-            }
+            ...question
         ],
         temperature: 0.7,
         top_p: 0.95,
@@ -197,12 +152,8 @@ export default async function fetchChatData(question) {
             headers: headers,
             body: JSON.stringify(payload)
         });
-        const responseData = await res.json();
 
-        // AI의 응답을 대화 기록에 추가
-        updateChatHistory('assistant', responseData.choices[0].message.content);
-
-        return responseData;
+        return res.json();
     } catch (error) {
         console.error('Error:', error);
     }
