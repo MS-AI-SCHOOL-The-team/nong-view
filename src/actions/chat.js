@@ -72,7 +72,7 @@ export default async function fetchChatData(question) {
     const url = process.env.OPENAI_URL;
     const apiKey = process.env.OPENAI_KEY;
 
-    await loadChatHistory(); // 대화 기록을 불러옵니다.
+    await loadChatHistory(); // 대화 기록을 불러오기
 
     const productName = getProductFromQuestion(question);  // 질문에서 품목 추출
     const isPrice = containsPriceKeyword(question);        // 가격 관련 키워드 포함 여부 확인
