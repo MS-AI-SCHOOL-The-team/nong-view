@@ -25,7 +25,7 @@ export default function ({ chartData }) {
             ],
             chart: {
                 width: '100%',
-                height: '90%',
+                height: '100%',
                 type: 'line',
                 stacked: false,
                 toolbar: { show: false }

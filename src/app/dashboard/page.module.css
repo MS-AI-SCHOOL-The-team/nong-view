@@ -49,7 +49,11 @@
   padding: 16px;
   margin-top: 16px;
   flex: 1;
-  overflow: auto;
+  overflow: hidden;
+}
+
+.chart-box>div {
+  overflow: hidden;
 }
 
 .chat-section {
@@ -235,6 +239,7 @@
 
   .label {
     width: calc(50% - 8px);
+    margin-bottom: 12px;
   }
 
   .main {
