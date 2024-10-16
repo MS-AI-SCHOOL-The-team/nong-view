@@ -94,7 +94,7 @@ export default function Chat() {
         setInputValue('');
 
         try {
-            const response = await postChat(question);
+            const response = await postChat([...messages.slice(-4), { role: 'You', content: question }]);
             setMessages(prev => [...prev, { role: '농뷰 AI', content: response.choices[0].message.content }]);
         } catch (error) {
             console.error('Error posting chat:', error);
