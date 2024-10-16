@@ -19,15 +19,22 @@ export default function ({ chartData }) {
 
         var options = {
             series: [
-                { name: '현재가격', type: 'line', data: currentPrices },
+                { name: '현재가격', type: 'line', data: currentPrices.slice(0, 4) },
                 { name: '예측가격', type: 'line', data: predictionPrices },
-                { name: '거래량', type: 'column', data: chartData.총거래물량 || [] },
+                { name: '거래량', type: 'column', data: chartData.총거래물량.slice(0, 4) || [] },
             ],
             chart: {
-                height: '100%',
+                width: '100%',
+                height: '90%',
                 type: 'line',
                 stacked: false,
                 toolbar: { show: false }
+            },
+            grid: {
+                padding: {
+                    left: -5,
+                    right: -5
+                }
             },
             dataLabels: { enabled: false },
             stroke: {
@@ -36,12 +43,26 @@ export default function ({ chartData }) {
             },
             colors: ['#008FFB', '#00E396', '#FEB019'],
             xaxis: {
-                categories: chartData.categories.map((date) => `${date.slice(-4, -2)}월 ${date.slice(-2) === '01' ? "상순" : date.slice(-2) === '11' ? "중순" : "하순"}`),
+                categories: chartData.categories.map((date) => `${date.slice(-4, -2)}-${date.slice(-2)}`),
             },
             yaxis: [
                 {
-                    title: { text: "가격 (원/kg)", style: { color: '#008FFB' } },
-                    labels: { style: { colors: '#008FFB' } },
+                    // title: { text: "가격 (원/kg)", style: { color: '#008FFB' } },
+                    labels: {
+                        style: { colors: '#008FFB' },
+                        formatter: function (val) {
+                            if (val >= 100000000) {
+                                return (val / 100000000).toFixed(0) + '억';
+                            } else if (val >= 10000) {
+                                return (val / 10000).toFixed(0) + '만';
+                            } else if (val >= 1000) {
+                                return (val / 1000).toFixed(0) + '천';
+                            } else {
+                                return val?.toFixed(0);
+                            }
+                        },
+                        offsetX: -15, // 레이블을 왼쪽으로 5픽셀 이동
+                    },
                     min: Math.max(0, minPrice - priceRange * 0.1),
                     max: maxPrice + priceRange * 0.1,
                 },
@@ -54,8 +75,22 @@ export default function ({ chartData }) {
                     show: false,
                 },
                 {
-                    title: { text: "거래량 (kg)", style: { color: '#FEB019', } },
-                    labels: { style: { colors: '#FEB019', } },
+                    // title: { text: "거래량 (kg)", style: { color: '#FEB019', } },
+                    labels: {
+                        style: { colors: '#FEB019', },
+                        formatter: function (val) {
+                            if (val >= 100000000) {
+                                return (val / 100000000).toFixed(0) + '억';
+                            } else if (val >= 10000) {
+                                return (val / 10000).toFixed(0) + '만';
+                            } else if (val >= 1000) {
+                                return (val / 1000).toFixed(0) + '천';
+                            } else {
+                                return val?.toFixed(0);
+                            }
+                        },
+                        offsetX: -20 // 레이블을 오른쪽으로 5픽셀 이동
+                    },
                     opposite: true,
                 },
             ],
@@ -74,16 +109,16 @@ export default function ({ chartData }) {
                     }
 
                     // 현재가격, 예측가격, 거래량 데이터 추가
-                    tooltip += addTooltipRow('현재가격', `${series[0][dataPointIndex].toFixed(0)} 원/kg`, w.globals.colors[0]);
-                    tooltip += addTooltipRow('예측가격', `${series[1][dataPointIndex].toFixed(0)} 원/kg`, w.globals.colors[1]);
-                    tooltip += addTooltipRow('거래량', `${series[2][dataPointIndex].toFixed(0)} kg`, w.globals.colors[2]);
+                    tooltip += addTooltipRow('현재가격', `${series[0][dataPointIndex]?.toFixed(0) ?? 0} 원/kg`, w.globals.colors[0]);
+                    tooltip += addTooltipRow('예측가격', `${series[1][dataPointIndex]?.toFixed(0) ?? 0} 원/kg`, w.globals.colors[1]);
+                    tooltip += addTooltipRow('거래량', `${series[2][dataPointIndex]?.toFixed(0) ?? 0} kg`, w.globals.colors[2]);
 
                     // 특, 상, 중, 하 데이터 추가 (없는 경우 0으로 표시)
                     const additionalData = ['특', '상', '중', '하'];
                     const additionalColors = ['#FF4560', '#775DD0', '#4CAF50', '#FF9800'];
                     additionalData.forEach((item, index) => {
                         const value = chartData[item] && chartData[item][dataPointIndex]
-                            ? chartData[item][dataPointIndex].toFixed(0)
+                            ? chartData[item][dataPointIndex]?.toFixed(0)
                             : '0';
                         tooltip += addTooltipRow(item, `${value} 원/kg`, additionalColors[index]);
                     });

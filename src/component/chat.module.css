@@ -97,13 +97,6 @@
 }
 
 @media (max-width: 768px) {
-    .chatArea {
-        height: 400px;
-        /* 모바일에서 채팅 영역 높이 고정 */
-        max-height: 50vh;
-        /* 화면 높이의 50%를 넘지 않도록 설정 */
-    }
-
     .messageList {
         max-height: calc(100% - 120px);
         /* 입력 폼과 여유 공간 고려 */

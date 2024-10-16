@@ -186,8 +186,7 @@
   }
 }
 
-/* ... 기존 스타일 유지 ... */
-
+/* ... 모바일 화면 ... */
 @media (max-width: 768px) {
   .page {
     height: auto;
@@ -219,7 +218,7 @@
   }
 
   .chat-placeholder {
-    height: 400px;
+    height: 70vh;
     /* 채팅 영역의 고정 높이 설정 */
     margin-top: 16px;
     overflow: hidden;
@@ -236,5 +235,21 @@
 
   .label {
     width: calc(50% - 8px);
+  }
+
+  .main {
+    padding: 0;
+  }
+
+  .chart-section {
+    padding: 0;
+  }
+
+  .chart-box {
+    padding: 0;
+  }
+
+  .divider {
+    width: Calc(100vw - 10px);
   }
 }

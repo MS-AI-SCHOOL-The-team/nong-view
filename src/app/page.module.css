@@ -185,12 +185,22 @@
     }
 
     .startButton {
-        opacity: 1;
-        z-index: 999;
+        position: unset;
+        margin: 50px 50%;
     }
 
     .grass,
     .farmer {
+        display: none;
+    }
+}
+
+@media (max-height: 600px) {
+    .guideTitle {
+        display: none;
+    }
+
+    .guideCaption {
         display: none;
     }
 }
