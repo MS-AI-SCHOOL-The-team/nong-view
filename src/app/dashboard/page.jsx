@@ -3,8 +3,10 @@ import Chat from "../../component/Chat";
 import styles from "./page.module.css";
 import Prediction from "./Prediction";
 import ChatManual from "@/component/ChatManual";
+import { getChartData } from "@/actions/chart";
 
-export default function () {
+export default async function () {
+  const data = await getChartData("배추");
 
   return (
     <body className={styles.page}>
@@ -14,7 +16,7 @@ export default function () {
       <hr className={styles.divider} />
       <main className={styles.main}>
         <section className={styles["chart-section"]}>
-          <Prediction />
+          <Prediction data={data} />
         </section>
         <section className={styles["chat-section"]}>
           <div className={styles.chatHeader}>

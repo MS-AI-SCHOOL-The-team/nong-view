@@ -11,17 +11,24 @@ const items = [
     "배추", "무", "양파", "사과", "배", "건고추", "마늘", "감자", "대파", "상추"
 ];
 
-export default function () {
+export default function ({ data }) {
     const [selectedItem, setSelectedItem] = useState("배추");
-    const [chartData, setChartData] = useState(null);
+    const [chartData, setChartData] = useState({
+        "배추": data
+    });
 
     useEffect(() => {
         async function fetchData() {
             const data = await getChartData(selectedItem);
-            setChartData(data);
+
+            setChartData({
+                [selectedItem]: data,
+                ...chartData
+            });
         }
 
-        fetchData();
+        if (!chartData[selectedItem])
+            fetchData();
     }, [selectedItem]);
 
     const handleItemChange = (event) => {
@@ -48,7 +55,7 @@ export default function () {
                 ))}
             </div>
             <article className={styles["chart-box"]}>
-                <Chart chartData={chartData} />
+                <Chart chartData={chartData[selectedItem]} />
             </article>
         </>
     );
