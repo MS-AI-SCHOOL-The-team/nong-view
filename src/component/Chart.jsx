@@ -51,15 +51,7 @@ export default function ({ chartData }) {
                     labels: {
                         style: { colors: '#008FFB' },
                         formatter: function (val) {
-                            if (val >= 100000000) {
-                                return (val / 100000000).toFixed(0) + '억';
-                            } else if (val >= 10000) {
-                                return (val / 10000).toFixed(0) + '만';
-                            } else if (val >= 1000) {
-                                return (val / 1000).toFixed(0) + '천';
-                            } else {
-                                return val?.toFixed(0);
-                            }
+                            return val?.toFixed(0);
                         },
                         offsetX: -15, // 레이블을 왼쪽으로 5픽셀 이동
                     },
