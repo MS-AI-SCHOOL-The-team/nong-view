@@ -19,9 +19,9 @@ export default function ({ chartData }) {
 
         var options = {
             series: [
-                { name: '현재가격', type: 'line', data: currentPrices.slice(0, 4) },
-                { name: '예측가격', type: 'line', data: predictionPrices },
-                { name: '거래량', type: 'column', data: chartData.총거래물량.slice(0, 4) || [] },
+                { name: '현재가격(원/kg)', type: 'line', data: currentPrices.slice(0, 4) },
+                { name: '예측가격(원/kg)', type: 'line', data: predictionPrices },
+                { name: '거래량(kg)', type: 'column', data: chartData.총거래물량.slice(0, 4) || [] },
             ],
             chart: {
                 width: '100%',
@@ -32,8 +32,8 @@ export default function ({ chartData }) {
             },
             grid: {
                 padding: {
-                    left: -5,
-                    right: -5
+                    left: -10,
+                    right: -15
                 }
             },
             dataLabels: { enabled: false },
@@ -43,7 +43,7 @@ export default function ({ chartData }) {
             },
             colors: ['#008FFB', '#00E396', '#FEB019'],
             xaxis: {
-                categories: chartData.categories.map((date) => `${date.slice(-4, -2)}-${date.slice(-2)}`),
+                categories: chartData.categories.map((date) => `${date.slice(-4, -2)}${date.slice(-2) === '01' ? "상순" : date.slice(-2) === '11' ? "중순" : "하순"}`),
             },
             yaxis: [
                 {
@@ -121,7 +121,7 @@ export default function ({ chartData }) {
             },
             legend: {
                 horizontalAlign: 'left',
-                offsetX: 40
+                offsetX: -15
             }
         };
 
