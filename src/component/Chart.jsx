@@ -32,8 +32,8 @@ export default function ({ chartData }) {
             },
             grid: {
                 padding: {
-                    left: -5,
-                    right: -5
+                    left: -10,
+                    right: -15
                 }
             },
             dataLabels: { enabled: false },
@@ -43,7 +43,7 @@ export default function ({ chartData }) {
             },
             colors: ['#008FFB', '#00E396', '#FEB019'],
             xaxis: {
-                categories: chartData.categories.map((date) => `${date.slice(-4, -2)}-${date.slice(-2)}`),
+                categories: chartData.categories.map((date) => `${date.slice(-4, -2)}${date.slice(-2) === '01' ? "상순" : date.slice(-2) === '11' ? "중순" : "하순"}`),
             },
             yaxis: [
                 {
