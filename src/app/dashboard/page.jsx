@@ -24,9 +24,9 @@ export default async function () {
             <ChatManual />
           </div>
           <p className={styles["chat-info"]}>
-            <span>농산물 가격 데이터를 기반으로 답변해드립니다</span>
+            <span>안녕하세유 반가워유~🧑‍🌾</span>
             <br />
-            <br />
+            <span>농산물 가격 데이터에 대해 궁금한 게 있으면 질문하세유~!​</span>
           </p>
           <div className={styles["chat-placeholder"]}>
             <Chat />
