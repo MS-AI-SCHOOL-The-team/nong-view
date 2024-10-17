@@ -37,7 +37,7 @@ export default function ({ data }) {
 
     return (
         <>
-            <h1>농산물 가격 AI 예측</h1>
+            <h2>농산물 가격 AI 예측</h2>
             <p className={styles.note}>※ 중복 선택 불가</p>
             <div className={styles["checkbox-container"]}>
                 {items.map((item) => (
