@@ -28,7 +28,7 @@ export default function ({ chartData }) {
                 height: '100%',
                 type: 'line',
                 stacked: false,
-                toolbar: { show: false }
+                toolbar: { show: true }
             },
             grid: {
                 padding: {

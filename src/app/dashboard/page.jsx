@@ -11,7 +11,11 @@ export default async function () {
   return (
     <body className={styles.page}>
       <header className={styles.header}>
-        <Image src="/logo2.png" alt="농뷰 로고" width={120} height={51} quality={100} unoptimized />
+        <Image src="/logo2.png" alt="농뷰 로고" width={150} height={63.75} quality={100} unoptimized />
+        <section className={styles.headLine}>
+          <h1 className={styles.headLineTitle}>오늘의 뉴스📢</h1>
+          <p className={styles.headLineContent}>정부, 온라인 판매 쌀, 상추, 사과 등 다소비 농산물 안전성 검사</p>
+        </section>
       </header>
       <hr className={styles.divider} />
       <main className={styles.main}>
@@ -24,9 +28,9 @@ export default async function () {
             <ChatManual />
           </div>
           <p className={styles["chat-info"]}>
-            <span>농산물 가격 데이터를 기반으로 답변해드립니다</span>
+            <span>안녕하세유 반가워유~🧑‍🌾</span>
             <br />
-            <br />
+            <span>농산물 가격 데이터에 대해 궁금한 게 있으면 질문하세유~!​</span>
           </p>
           <div className={styles["chat-placeholder"]}>
             <Chat />

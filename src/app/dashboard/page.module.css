@@ -11,7 +11,33 @@
 .header {
   padding: 16px;
   display: flex;
-  justify-content: flex-start;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.headLine {
+  width: 1325px;
+  height: 45px;
+  margin: 0;
+  border: 2px solid #96beea;
+  border-radius: 12px;
+  box-sizing: border-box;
+  padding: 0 30px;
+  display: flex;
+  align-items: center;
+}
+
+.headLineTitle {
+  margin: 0;
+  border: 0;
+  border-right: 2px solid #96beea;
+  padding-right: 4px;
+  font-size: 1em;
+}
+
+.headLineContent {
+  padding-left: 15px;
+  font-size: 1em;
 }
 
 .main {
@@ -256,5 +282,9 @@
 
   .divider {
     width: Calc(100vw - 10px);
+  }
+
+  .headLine {
+    display: none;
   }
 }
