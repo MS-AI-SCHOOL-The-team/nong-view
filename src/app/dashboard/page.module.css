@@ -16,7 +16,8 @@
 }
 
 .headLine {
-  width: 1325px;
+  width: Calc(100% - 154px);
+  min-width: 657px;
   height: 45px;
   margin: 0;
   border: 2px solid #96beea;
