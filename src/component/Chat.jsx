@@ -94,7 +94,7 @@ export default function Chat() {
         setInputValue('');
 
         try {
-            const newMessages = [...messages.slice(-4).map(({ role, content }) => ({
+            const newMessages = [...messages.slice(-8).map(({ role, content }) => ({
                 role: role === "You" ? "user" : "assistant",
                 content
             })), { role: 'user', content: question }]
