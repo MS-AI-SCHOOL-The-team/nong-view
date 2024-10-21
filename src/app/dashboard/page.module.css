@@ -11,7 +11,34 @@
 .header {
   padding: 16px;
   display: flex;
-  justify-content: flex-start;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.headLine {
+  width: Calc(100% - 154px);
+  min-width: 657px;
+  height: 45px;
+  margin: 0;
+  border: 2px solid #96beea;
+  border-radius: 12px;
+  box-sizing: border-box;
+  padding: 0 30px;
+  display: flex;
+  align-items: center;
+}
+
+.headLineTitle {
+  margin: 0;
+  border: 0;
+  border-right: 2px solid #96beea;
+  padding-right: 4px;
+  font-size: 1em;
+}
+
+.headLineContent {
+  padding-left: 15px;
+  font-size: 1em;
 }
 
 .main {
@@ -49,7 +76,11 @@
   padding: 16px;
   margin-top: 16px;
   flex: 1;
-  overflow: auto;
+  overflow: hidden;
+}
+
+.chart-box>div {
+  overflow: hidden;
 }
 
 .chat-section {
@@ -186,8 +217,7 @@
   }
 }
 
-/* ... 기존 스타일 유지 ... */
-
+/* ... 모바일 화면 ... */
 @media (max-width: 768px) {
   .page {
     height: auto;
@@ -219,7 +249,7 @@
   }
 
   .chat-placeholder {
-    height: 400px;
+    height: 70vh;
     /* 채팅 영역의 고정 높이 설정 */
     margin-top: 16px;
     overflow: hidden;
@@ -236,5 +266,26 @@
 
   .label {
     width: calc(50% - 8px);
+    margin-bottom: 12px;
+  }
+
+  .main {
+    padding: 0;
+  }
+
+  .chart-section {
+    padding: 0;
+  }
+
+  .chart-box {
+    padding: 0;
+  }
+
+  .divider {
+    width: Calc(100vw - 10px);
+  }
+
+  .headLine {
+    display: none;
   }
 }

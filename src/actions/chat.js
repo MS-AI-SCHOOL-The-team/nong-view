@@ -39,8 +39,8 @@ export default async function fetchChatData(question) {
     const url = process.env.OPENAI_URL;
     const apiKey = process.env.OPENAI_KEY;
 
-    const productName = getProductFromQuestion(question);  // 질문에서 품목 추출
-    const isPrice = containsPriceKeyword(question);        // 가격 관련 키워드 포함 여부 확인
+    const productName = getProductFromQuestion(question.at(-1).content);  // 질문에서 품목 추출
+    const isPrice = containsPriceKeyword(question.at(-1).content);        // 가격 관련 키워드 포함 여부 확인
 
     let csvData = "";
 
@@ -134,10 +134,7 @@ export default async function fetchChatData(question) {
                 2. 상황에 맞는 농사 정보와 조언을 제공
                 `
             },
-            {
-                role: "user",
-                content: `${question}`
-            }
+            ...question
         ],
         temperature: 0.7,
         top_p: 0.95,
