@@ -4,14 +4,14 @@ import Link from "next/link";
 
 export default function () {
     return <body className={styles.body}>
-        <Image className={styles.backgroud} src="/home_bg.jpg" fill={true} alt="배경 이미지" quality={100} unoptimized />
+        <Image className={styles.backgroud} src="/home_bg.webp" fill={true} alt="배경 이미지" quality={100} unoptimized />
         <section className={styles.container}>
             <article className={styles.article}>
                 <header className={styles.header}>
                     <h1 className={styles.title}>“농산물 가격 예측 정보” 제공 시스템</h1>
                     <h2 className={styles.subTitle}>머신러닝, AI 기술을 활용한</h2>
                     <div className={styles.logo}>
-                        <Image src="/logo.png" alt="농뷰 로고" width={356} height={152} quality={100} unoptimized />
+                        <Image src="/logo.webp" alt="농뷰 로고" width={356} height={152} quality={100} unoptimized />
                     </div>
                 </header>
                 <main className={styles.main}>
@@ -20,8 +20,8 @@ export default function () {
                         <Link href="/dashboard" className={styles.startButton}>START</Link>
                     </div>
                 </main>
-                <Image className={styles.farmer} src="/home_farmer.png" width={300} height={400} alt="농부 이미지"></Image>
-                <Image className={styles.grass} src="/home_grass.png" width={400} height={375} alt="풀 이미지"></Image>
+                <Image className={styles.farmer} src="/home_farmer.webp" width={300} height={400} alt="농부 이미지"></Image>
+                <Image className={styles.grass} src="/home_grass.webp" width={400} height={375} alt="풀 이미지"></Image>
             </article>
         </section >
     </body >

@@ -118,7 +118,7 @@
   padding: 0 20px;
 }
 
-.chart-section {
+.chartSection {
   flex: 2;
   background-color: var(--background);
   border: 2px solid #d9d9d9;
@@ -129,6 +129,11 @@
   overflow: hidden;
 }
 
+.chartHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
 .note {
   display: block;
   margin-bottom: 8px;
@@ -137,7 +142,7 @@
   text-align: end;
 }
 
-.chart-box {
+.chartBox {
   background-color: var(--background);
   border: 1px solid var(--gray-alpha-200);
   border-radius: 8px;
@@ -147,11 +152,11 @@
   overflow: hidden;
 }
 
-.chart-box>div {
+.chartBox>div {
   overflow: hidden;
 }
 
-.chat-section {
+.chatSection {
   flex: 1;
   background-color: #03c75a;
   padding: 24px;
@@ -171,11 +176,11 @@
   margin-bottom: 12px;
 }
 
-.chat-info {
+.chatInfo {
   color: #333;
 }
 
-.chat-placeholder {
+.chatPlaceholder {
   background-color: var(--background);
   border: 1px solid var(--gray-alpha-200);
   border-radius: 8px;
@@ -210,7 +215,7 @@
   background: #d9d9d9;
 }
 
-.checkbox-container {
+.checkboxContainer {
   background-color: #f2f2f2;
   padding: 12px;
   border-radius: 8px;
@@ -299,8 +304,8 @@
     height: auto;
   }
 
-  .chart-section,
-  .chat-section {
+  .chartSection,
+  .chatSection {
     width: 100%;
     height: auto;
     max-height: none;
@@ -309,14 +314,14 @@
     box-sizing: border-box;
   }
 
-  .chart-box {
+  .chartBox {
     height: 300px;
     /* 차트의 고정 높이 설정 */
     overflow: auto;
     flex: none;
   }
 
-  .chat-placeholder {
+  .chatPlaceholder {
     height: 70vh;
     /* 채팅 영역의 고정 높이 설정 */
     margin-top: 16px;
@@ -326,7 +331,7 @@
     flex: none;
   }
 
-  .checkbox-container {
+  .checkboxContainer {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -341,11 +346,11 @@
     padding: 0;
   }
 
-  .chart-section {
+  .chartSection {
     padding: 0;
   }
 
-  .chart-box {
+  .chartBox {
     padding: 0;
   }
 

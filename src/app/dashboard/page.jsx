@@ -37,7 +37,7 @@ export default async function () {
   return (
     <body className={styles.page}>
       <header className={styles.header}>
-        <Image src="/logo2.png" alt="농뷰 로고" width={150} height={63.75} quality={100} unoptimized />
+        <Image src="/logo2.webp" alt="농뷰 로고" width={150} height={63.75} quality={100} unoptimized />
         <section className={styles.headLine}>
           <h1 className={styles.headLineTitle}>오늘의 뉴스📢</h1>
           <article className={styles.headLineContent}>
@@ -49,20 +49,20 @@ export default async function () {
       </header>
       <hr className={styles.divider} />
       <main className={styles.main}>
-        <section className={styles["chart-section"]}>
+        <section className={styles.chartSection}>
           <Prediction data={data} />
         </section>
-        <section className={styles["chat-section"]}>
+        <section className={styles.chatSection}>
           <div className={styles.chatHeader}>
-            <h1 className={styles.chatTitle}>AI 채팅</h1>
+            <h2 className={styles.chatTitle}>AI 채팅</h2>
             <ChatManual />
           </div>
-          <p className={styles["chat-info"]}>
+          <p className={styles.chatInfo}>
             <span>안녕하세유 반가워유~🧑‍🌾</span>
             <br />
             <span>농산물 가격 데이터에 대해 궁금한 게 있으면 질문하세유~!​</span>
           </p>
-          <div className={styles["chat-placeholder"]}>
+          <div className={styles.chatPlaceholder}>
             <Chat />
           </div>
         </section>
