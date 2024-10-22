@@ -1,9 +1,10 @@
 "use client"
 
+import { getChartData } from "@/actions/chart";
+import DataReference from "@/component/DataReference";
+import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import styles from "./page.module.css";
-import dynamic from "next/dynamic";
-import { getChartData } from "@/actions/chart";
 
 const Chart = dynamic(() => import("../../component/Chart"), { ssr: false });
 
@@ -37,9 +38,12 @@ export default function ({ data }) {
 
     return (
         <>
-            <h2>농산물 가격 AI 예측</h2>
+            <div className={styles.chartHeader}>
+                <h2>농산물 가격 AI 예측</h2>
+                <DataReference />
+            </div>
             <p className={styles.note}>※ 중복 선택 불가</p>
-            <div className={styles["checkbox-container"]}>
+            <div className={styles.checkboxContainer}>
                 {items.map((item) => (
                     <label key={item} className={styles.label} htmlFor={item}>
                         <input
@@ -54,7 +58,7 @@ export default function ({ data }) {
                     </label>
                 ))}
             </div>
-            <article className={styles["chart-box"]}>
+            <article className={styles.chartBox}>
                 <Chart chartData={chartData[selectedItem]} />
             </article>
         </>
