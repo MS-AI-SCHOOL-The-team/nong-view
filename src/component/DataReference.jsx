@@ -31,7 +31,7 @@ export default function () {
             </div>
         </dialog >
         <button className={styles.infoButton} type="button" title="정보" aria-label="정보 열기" onClick={handleOpenManual}>
-            <Image src="/info_resize.png" width={40} height={40} quality={75} alt="정보 이미지"></Image>
+            <Image src="/info.webp" width={20} height={20} quality={100} alt="정보 이미지" unoptimized></Image>
         </button>
     </>
 }

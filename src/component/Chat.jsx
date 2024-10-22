@@ -4,11 +4,14 @@ import { useEffect, useRef, useState } from 'react';
 import { useFormStatus } from 'react-dom';
 import postChat from "../actions/chat";
 import styles from "./chat.module.css";
+import Image from 'next/image';
 
 const ChatButton = () => {
     const { pending } = useFormStatus();
     return (
-        <button type="submit" disabled={pending} className={styles.button}></button>
+        <button type="submit" disabled={pending} className={styles.button}>
+            <Image src="/arrow.webp" width={18} height={20} alt="전송" quality={100} unoptimized />
+        </button>
     );
 };
 
@@ -98,7 +101,7 @@ export default function Chat() {
                 role: role === "You" ? "user" : "assistant",
                 content
             })), { role: 'user', content: question }]
-            
+
             const response = await postChat(newMessages);
             setMessages(prev => [...prev, { role: '농뷰 AI', content: response.choices[0].message.content }]);
         } catch (error) {

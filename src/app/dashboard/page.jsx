@@ -37,7 +37,7 @@ export default async function () {
   return (
     <body className={styles.page}>
       <header className={styles.header}>
-        <Image src="/logo2.png" alt="농뷰 로고" width={150} height={63.75} quality={100} unoptimized />
+        <Image src="/logo2.webp" alt="농뷰 로고" width={150} height={63.75} quality={100} unoptimized />
         <section className={styles.headLine}>
           <h1 className={styles.headLineTitle}>오늘의 뉴스📢</h1>
           <article className={styles.headLineContent}>
