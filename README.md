@@ -71,3 +71,14 @@ AI와 데이터 분석은 이러한 문제를 해결할 수 있는 핵심 도구
 2. **시장 효율성 및 투명성 향상**: 시장 변동성에 효과적으로 대응할 수 있는 도구 제공
 3. **정부 차원의 공급 관리 기여**: 생산 계획 및 공급 전략 수립 지원
 4. **경제 안정성 도모**: 시장 수급 불균형 예방 및 경제 안정 기여
+
+## 프로젝트 팀 정보
+
+|이름|역할|
+|--|--|
+|[soyeon-rgb](https://github.com/soyeon-rgb)|Project Manager|
+|[najung9551](https://github.com/najung9551)|UI/UX Designer|
+|[zampano-1](https://github.com/zampano-1)|Product Planner|
+|[CheongYa](https://github.com/CheongYa)|DevOps/Prompt Engineer|
+|[IDKNWHORU](https://github.com/IDKNWHORU)|Frontend Developer|
+|[devyulbae](https://github.com/devyulbae)|Machine Learning Engineer|
