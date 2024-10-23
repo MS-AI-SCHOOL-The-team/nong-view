@@ -35,6 +35,10 @@ export default function () {
                     </ul>
                 </li>
             </ul>
+            <h4>단축키</h4>
+            <ul>
+                <li><span className={styles.shortCut}>Ctrl</span>+<span className={styles.shortCut}>Enter</span> : 채팅 보내기</li>
+            </ul>
             <div className={styles.closeManualButtonArea}>
                 <button className={styles.closeManualButton} type="button" onClick={handleCloseManual}>닫기</button>
             </div>
