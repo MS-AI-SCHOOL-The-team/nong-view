@@ -1,6 +1,6 @@
 # 농뷰 (NongView)
 
-<img src="/public/logo.png" alt="NongView Logo" width="150" height="65">
+<img src="/public/logo.webp" alt="NongView Logo" width="150" height="65">
 
 **농뷰(NongView)**는 AI 기반 농산물 가격 예측 서비스로, 농산물 가격 변동에 따른 리스크를 최소화하고 시장 변화에 유연하게 대응할 수 있도록 돕습니다. 이 서비스를 통해 농업 및 유통 생태계의 지속 가능성을 강화하며, B2B와 B2G 시장 모두에 긍정적인 효과를 제공합니다.
 
