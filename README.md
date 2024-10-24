@@ -20,6 +20,9 @@ AI 채팅 기능을 사용하려면 다음 환경 변수를 추가해야 합니�
 
 - **OPENAI_KEY**: Azure API 키
 - **OPENAI_URL**: ChatGPT API URL
+- **SEARCH_ENDPOINT**: SEARCH API URL
+- **SEARCH_INDEX_NAME**: SEARCH API INDEX NAME
+- **SEARCH_API_KEY**: SEARCH API 키
 
 이 변수들을 프로젝트의 환경 변수에 설정해야 AI 기능이 정상적으로 작동합니다.
 
