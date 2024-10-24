@@ -83,6 +83,7 @@ AI와 데이터 분석은 이러한 문제를 해결할 수 있는 핵심 도구
 1. Azure의 Static Webapp을 사용하여 배포
 2. Github의 CI/CD를 적용하여 무중단 배포 가능
 3. .env 파일과 Github action의 Repository secrets에서 API 관리
+
 ## 프로젝트 팀 정보
 
 |이름|역할|
