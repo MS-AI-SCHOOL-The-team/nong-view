@@ -5,7 +5,9 @@ import { useFormStatus } from 'react-dom';
 import postChat from "../actions/chat";
 import styles from "./chat.module.css";
 import Image from 'next/image';
-import { MDXContent } from "./MDXContent"
+import dynamic from 'next/dynamic';
+
+const MDXContent = dynamic(() => import("./MDXContent").then(mod => mod.MDXContent));
 
 const ChatButton = () => {
     const { pending } = useFormStatus();
@@ -153,7 +155,11 @@ export default function Chat() {
                     messages.map((message, index) => (
                         <article key={index}>
                             <h3>{message.role}</h3>
-                            <MDXContent content={message.content} />
+                            {typeof MDXContent !== 'undefined' ? (
+                                <MDXContent content={message.content} />
+                            ) : (
+                                <p>{message.content}</p>
+                            )}
                         </article>
                     ))
                 )}
