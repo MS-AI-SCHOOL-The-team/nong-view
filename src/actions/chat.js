@@ -5,32 +5,69 @@ import path from 'path';
 import { parse } from 'csv-parse';
 import { promisify } from 'util';
 
+import { SearchClient, AzureKeyCredential } from "@azure/search-documents";
+
+// 검색 클라이언트 초기화 (환경 변수에서 검색 엔드포인트 및 API 키 사용)
+const searchClient = new SearchClient(
+    process.env.SEARCH_ENDPOINT, 
+    process.env.SEARCH_INDEX_NAME, 
+    new AzureKeyCredential(process.env.SEARCH_API_KEY)
+);
+
 // 비동기 처리를 위한 promisify 설정
 const parseCSV = promisify(parse);
 
 const items = ["사과", "상추", "배추", "무", "양파", "대파", "감자", "건고추", "마늘"];
 const priceKeywords = ["가격", "비용", "얼마"];
 
-// 질문에 포함된 품목을 반환하는 함수
-function getProductFromQuestion(question) {
-    return items.find(item => question.includes(item)); // 일치하는 품목을 반환
+// 품목을 영어로 변환하는 딕셔너리
+const productDictionary = {
+    "사과": "Apple",
+    "상추": "Lettuce",
+    "배추": "Cabbage",
+    "무": "Radish",
+    "양파": "Onion",
+    "대파": "GreenOnion",
+    "감자": "Potato",
+    "건고추": "Redpepper",
+    "마늘": "Garlic"
+};
+
+// 한국어 품목명을 영어로 변환하는 함수
+function translateProductToEnglish(koreanProductName) {
+    return productDictionary[koreanProductName] || null;
 }
 
-// 가격 관련 키워드가 포함되어 있는지 확인하는 함수
+// 질문에서 품목 추출
+function getProductFromQuestion(question) {
+    return Object.keys(productDictionary).find(item => question.includes(item));
+}
+
+// 가격 관련 키워드 확인
 function containsPriceKeyword(question) {
+    const priceKeywords = ["가격", "비용", "얼마"];
     return priceKeywords.some(keyword => question.includes(keyword));
 }
 
-// CSV 파일을 읽는 함수 (품목명을 받아서 해당 파일을 동적으로 로드)
-async function readCSV(productName) {
-    const filePath = `./src/output/processed_${productName}.csv`;
+// Azure Cognitive Search 검색 함수
+async function searchProduct(englishProductName) {
+    const searchQuery = {
+        search: englishProductName,
+        top: 5, // 상위 5개 결과만
+        select: ["name", "price", "date"]
+    };
 
     try {
-        const fileContent = await fs.readFile(filePath, 'utf-8');
-        const records = await parseCSV(fileContent, { columns: true, skip_empty_lines: true });
-        return records;
+        const searchResults = await searchClient.search(searchQuery);
+        const resultArray = [];
+        
+        for await (const result of searchResults.results) {
+            resultArray.push(result.document);
+        }
+        
+        return resultArray;
     } catch (error) {
-        console.error(`Error reading CSV for ${productName}:`, error);
+        console.error(`Error searching for ${englishProductName}:`, error);
         return [];
     }
 }
@@ -39,10 +76,11 @@ export default async function fetchChatData(question) {
     const url = process.env.OPENAI_URL;
     const apiKey = process.env.OPENAI_KEY;
 
-    const productName = getProductFromQuestion(question.at(-1).content);  // 질문에서 품목 추출
-    const isPrice = containsPriceKeyword(question.at(-1).content);        // 가격 관련 키워드 포함 여부 확인
+    const koreanProductName = getProductFromQuestion(question.at(-1).content);  // 질문에서 품목 추출
+    const englishProductName = translateProductToEnglish(koreanProductName);    // 한국어를 영어로 변환
+    const isPrice = containsPriceKeyword(question.at(-1).content);
 
-    let csvData = "";
+    let searchResults = [];
 
     // 현재 날짜 가져오기
     const currentDate = new Date();
@@ -52,13 +90,12 @@ export default async function fetchChatData(question) {
         day: 'numeric'
     });
 
-    if (productName && isPrice) {
+    if (englishProductName && isPrice) {
         try {
-            // 조건이 만족되면 CSV 데이터를 읽어옴
-            const csvResults = await readCSV(productName);
-            csvData = JSON.stringify(csvResults);  // 데이터를 JSON 문자열로 변환
+            // 품목에 대한 Azure Search 검색 결과 가져오기
+            searchResults = await searchProduct(englishProductName);
         } catch (error) {
-            console.error('CSV 데이터를 불러오는 중 오류가 발생했습니다:', error);
+            console.error('Azure Search 데이터를 불러오는 중 오류가 발생했습니다:', error);
         }
     }
 
@@ -70,9 +107,10 @@ export default async function fetchChatData(question) {
                 [Character]
                 농사 전문가 '충청도 농부'
 
-                ** '배추, 무, 양파, 사과, 배, 건고추, 마늘, 감자, 대파, 상추' 품목에 대한 질문일 경우, 그리고 가격과 관련된 질문일 경우에만 CSV 데이터를 읽고, 현재 날짜도 고려해서 답변해주세요.
+                ** '배추, 무, 양파, 사과, 배, 건고추, 마늘, 감자, 대파, 상추' 품목에 대한 질문일 경우, 그리고 가격과 관련된 질문일 경우에만 Azure Search 데이터를 읽고, 현재 날짜도 고려해서 답변해주세요.
                 현재 날짜: ${formattedDate}
-                CSV 데이터: ${productName && isPrice ? csvData : 'N/A'}
+                Azure Search 데이터: ${englishProductName && isPrice ? JSON.stringify(searchResults) : 'N/A'}
+
 
                 ---
                 ** 사용자가 농산물에 대한 질문을 했을 때, 내가 지정한 '배추, 무, 양파, 사과, 배, 건고추, 마늘, 감자, 대파, 상추' 이 10개의 품목 외에 대한 질문을 하거나, 농산물과 직접적인 관련이 없는 후속 질문을 했을 때 아래와 같은 답변을 사용해 주세요.

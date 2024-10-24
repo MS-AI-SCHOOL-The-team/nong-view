@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@azure/search-documents": "^12.1.0",
     "csv-parse": "^5.5.6",
     "next": "14.2.13",
     "react": "^18",
