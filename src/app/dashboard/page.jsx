@@ -9,29 +9,29 @@ import Link from "next/link";
 export default async function () {
   const data = await getChartData("배추");
   const newsList = [{
-    link: "https://www.nongupin.co.kr/news/articleView.html?idxno=202104",
-    text: "한능평 ‘사육기간 단축부문’ 내년에도 열린다"
+    link: "https://slv.nongupin.co.kr/news/articleView.html?idxno=202167",
+    text: "정부, 김장철 앞두고 배추·무 계약재배 공급 확대"
   }, {
-    link: "https://www.nongupin.co.kr/news/articleView.html?idxno=202103",
-    text: "제발 20만원 약속이라도 지켜달라…넋 놓고 또 빚진다"
+    link: "https://slv.nongupin.co.kr/news/articleView.html?idxno=202165",
+    text: "도매법인은 모기업‘현금인출기’ 인가… 독과점에 수수료도 과해"
   }, {
-    link: "https://www.nongupin.co.kr/news/articleView.html?idxno=202102",
-    text: "윤 대통령, 9월 집중호우 14개 읍면동 특별재난지역 선포"
+    link: "https://slv.nongupin.co.kr/news/articleView.html?idxno=202131",
+    text: "농업소득 감소세 가팔라…저비용 농업으로 전환 등 시급"
   }, {
-    link: "https://www.nongupin.co.kr/news/articleView.html?idxno=202100",
-    text: "한국형 2세대 스마트팜 조기 상용화 준비 ‘착착’"
+    link: "https://slv.nongupin.co.kr/news/articleView.html?idxno=202129",
+    text: "럼피스킨 다시 확산하는 이유는?"
   }, {
-    link: "https://www.nongupin.co.kr/news/articleView.html?idxno=202099",
-    text: "데임·터짐 피해 ‘배’, 수확 후 선별·저장 주의해야"
+    link: "https://slv.nongupin.co.kr/news/articleView.html?idxno=202128",
+    text: "양돈 생산성 향상 위해 후보돈 입식·관리 중요"
   }, {
-    link: "https://www.nongupin.co.kr/news/articleView.html?idxno=202098",
-    text: "저온성 필름으로 재배한 ‘천궁’"
+    link: "https://slv.nongupin.co.kr/news/articleView.html?idxno=202111",
+    text: "김제 스마트팜 피해 책임 통감…보수·보상 최선 노력"
   }, {
-    link: "https://www.nongupin.co.kr/news/articleView.html?idxno=202096",
-    text: "젖뗀 돼지 설사 ‘박테리오파지’ 활용 기술로 줄여"
+    link: "https://slv.nongupin.co.kr/news/articleView.html?idxno=202107",
+    text: "올해 김장 직접 담그는 비중 늘어날 듯"
   }, {
-    link: "https://www.nongupin.co.kr/news/articleView.html?idxno=202104",
-    text: "한능평 ‘사육기간 단축부문’ 내년에도 열린다"
+    link: "https://slv.nongupin.co.kr/news/articleView.html?idxno=202167",
+    text: "정부, 김장철 앞두고 배추·무 계약재배 공급 확대"
   }]
 
   return (
