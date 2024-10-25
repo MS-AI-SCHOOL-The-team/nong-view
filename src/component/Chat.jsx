@@ -5,6 +5,9 @@ import { useFormStatus } from 'react-dom';
 import postChat from "../actions/chat";
 import styles from "./chat.module.css";
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
+
+const MDXContent = dynamic(() => import("./MDXContent").then(mod => mod.MDXContent));
 
 const ChatButton = () => {
     const { pending } = useFormStatus();
@@ -100,13 +103,19 @@ export default function Chat() {
             const newMessages = [...messages.slice(-8).map(({ role, content }) => ({
                 role: role === "You" ? "user" : "assistant",
                 content
-            })), { role: 'user', content: question }]
+            })), { role: 'user', content: question }];
 
             const response = await postChat(newMessages);
-            setMessages(prev => [...prev, { role: '농뷰 AI', content: response.choices[0].message.content }]);
+            setMessages(prev => [...prev, {
+                role: '농뷰 AI',
+                content: response.choices[0].message.content
+            }]);
         } catch (error) {
             console.error('Error posting chat:', error);
-            setMessages(prev => [...prev, { role: '농뷰 AI', content: '죄송합니다. 오류가 발생했습니다.' }]);
+            setMessages(prev => [...prev, {
+                role: '농뷰 AI',
+                content: '죄송합니다. 오류가 발생했습니다.'
+            }]);
         }
     };
 
@@ -131,15 +140,26 @@ export default function Chat() {
             <div className={styles.messageList} ref={messageListRef}>
                 {messages.length === 0 ? (
                     <article className={styles.suggestions}>
-                        {randomThreeItems.map((message, index) => <button key={index} className={styles.suggestionButton} onClick={() => handleClickSuggestion(message)} disabled={isSuggestionSelected}>
-                            {message}
-                        </button>)}
+                        {randomThreeItems.map((message, index) => (
+                            <button
+                                key={index}
+                                className={styles.suggestionButton}
+                                onClick={() => handleClickSuggestion(message)}
+                                disabled={isSuggestionSelected}
+                            >
+                                {message}
+                            </button>
+                        ))}
                     </article>
                 ) : (
                     messages.map((message, index) => (
                         <article key={index}>
                             <h3>{message.role}</h3>
-                            <p>{message.content}</p>
+                            {typeof MDXContent !== 'undefined' ? (
+                                <MDXContent content={message.content} />
+                            ) : (
+                                <p>{message.content}</p>
+                            )}
                         </article>
                     ))
                 )}
