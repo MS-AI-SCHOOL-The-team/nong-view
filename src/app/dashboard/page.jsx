@@ -7,7 +7,7 @@ import { getChartData } from "@/actions/chart";
 import Link from "next/link";
 
 export default async function () {
-  const data = await getChartData("배추");
+  const data = await getChartData("마늘");
   const newsList = [{
     link: "https://slv.nongupin.co.kr/news/articleView.html?idxno=202167",
     text: "정부, 김장철 앞두고 배추·무 계약재배 공급 확대"

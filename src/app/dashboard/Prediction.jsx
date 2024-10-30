@@ -9,13 +9,13 @@ import styles from "./page.module.css";
 const Chart = dynamic(() => import("../../component/Chart"), { ssr: false });
 
 const items = [
-    "배추", "무", "양파", "사과", "배", "건고추", "마늘", "감자", "대파", "상추"
+    "마늘", "배추", "무", "양파", "사과", "배", "건고추", "감자", "대파", "상추"
 ];
 
 export default function ({ data }) {
-    const [selectedItem, setSelectedItem] = useState("배추");
+    const [selectedItem, setSelectedItem] = useState("마늘");
     const [chartData, setChartData] = useState({
-        "배추": data
+        "마늘": data
     });
 
     useEffect(() => {
