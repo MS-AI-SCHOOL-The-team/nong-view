@@ -8,7 +8,7 @@ import CryptoJS from 'crypto-js';
 // 비동기 처리를 위한 promisify 설정
 const parseCSV = promisify(parse);
 
-const items = ["사과", "상추", "배추", "무", "양파", "대파", "감자", "건고추", "마늘"];
+const items = ["사과", "상추", "배추", "무", "배", "양파", "대파", "감자", "건고추", "마늘"];
 const priceKeywords = ["가격", "비용", "얼마"];
 
 // 질문에 포함된 품목을 반환하는 함수
