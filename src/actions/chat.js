@@ -1,9 +1,9 @@
 "use server";
 
-import fs from 'fs/promises';
-import path from 'path';
 import { parse } from 'csv-parse';
+import fs from 'fs/promises';
 import { promisify } from 'util';
+import CryptoJS from 'crypto-js';
 
 // 비동기 처리를 위한 promisify 설정
 const parseCSV = promisify(parse);
@@ -35,9 +35,12 @@ async function readCSV(productName) {
     }
 }
 
-export default async function fetchChatData(question) {
+export default async function fetchChatData(enryptedQuestion) {
     const url = process.env.OPENAI_URL;
     const apiKey = process.env.OPENAI_KEY;
+    const SALT = process.env.NEXT_PUBLIC_SECRET_KEY;
+
+    const question = enryptedQuestion.map(({ role, content }) => ({ role, content: CryptoJS.AES.decrypt(content, SALT).toString(CryptoJS.enc.Utf8) }));
 
     const productName = getProductFromQuestion(question.at(-1).content);  // 질문에서 품목 추출
     const isPrice = containsPriceKeyword(question.at(-1).content);        // 가격 관련 키워드 포함 여부 확인
@@ -153,7 +156,13 @@ export default async function fetchChatData(question) {
             body: JSON.stringify(payload)
         });
 
-        return res.json();
+        const chatbotjson = await res.json();
+
+        const { content } = chatbotjson.choices[0].message;
+
+        chatbotjson.choices[0].message.content = CryptoJS.AES.encrypt(content, SALT).toString();
+
+        return chatbotjson;
     } catch (error) {
         console.error('Error:', error);
     }
