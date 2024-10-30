@@ -25,6 +25,7 @@ jobs:
         env:
           NEXT_PUBLIC_NAVER_SEARCH_ADVISOR: ${{ secrets.NEXT_PUBLIC_NAVER_SEARCH_ADVISOR }}
           NEXT_PUBLIC_CLARITY_TAG_ID: ${{ secrets.NEXT_PUBLIC_CLARITY_TAG_ID }}
+          NEXT_PUBLIC_SECRET_KEY: ${{ secrets.NEXT_PUBLIC_SECRET_KEY }}
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_POLITE_PLANT_07DA6ED0F }}
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
@@ -34,7 +35,7 @@ jobs:
           app_location: "/" # App source code path
           api_location: "" # Api source code path - optional
           output_location: "" # Built app content directory - optional
-          app_build_command: "NEXT_PUBLIC_NAVER_SEARCH_ADVISOR=$NEXT_PUBLIC_NAVER_SEARCH_ADVISOR NEXT_PUBLIC_CLARITY_TAG_ID=$NEXT_PUBLIC_CLARITY_TAG_ID npm run build"
+          app_build_command: "NEXT_PUBLIC_NAVER_SEARCH_ADVISOR=$NEXT_PUBLIC_NAVER_SEARCH_ADVISOR NEXT_PUBLIC_CLARITY_TAG_ID=$NEXT_PUBLIC_CLARITY_TAG_ID NEXT_PUBLIC_SECRET_KEY=$NEXT_PUBLIC_SECRET_KEY npm run build"
           ###### End of Repository/Build Configurations ######
 
   close_pull_request_job:
