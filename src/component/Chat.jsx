@@ -6,6 +6,7 @@ import postChat from "../actions/chat";
 import styles from "./chat.module.css";
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
+import CryptoJS from 'crypto-js';
 
 const MDXContent = dynamic(() => import("./MDXContent").then(mod => mod.MDXContent));
 
@@ -97,15 +98,22 @@ export default function Chat() {
         setInputValue('');
 
         try {
+            const SALT = process.env.NEXT_PUBLIC_SECRET_KEY;
+
+            const encryptedQuestion = CryptoJS.AES.encrypt(question, SALT).toString();
+
             const newMessages = [...messages.slice(-8).map(({ role, content }) => ({
                 role: role === "You" ? "user" : "assistant",
-                content
-            })), { role: 'user', content: question }];
+                content: CryptoJS.AES.encrypt(content, SALT).toString()
+            })), { role: 'user', content: encryptedQuestion }];
 
             const response = await postChat(newMessages);
+
+            const { content } = response.choices[0].message;
+
             setMessages(prev => [...prev, {
                 role: '농뷰 AI',
-                content: response.choices[0].message.content
+                content: CryptoJS.AES.decrypt(content, SALT).toString(CryptoJS.enc.Utf8)
             }]);
         } catch (error) {
             console.error('Error posting chat:', error);
