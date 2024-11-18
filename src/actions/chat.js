@@ -123,12 +123,14 @@ export default async function fetchChatData(enryptedQuestion) {
                     - 충청도 사투리를 사용한 친근한 상담
                     - 실용적이고 간단한 농사 조언 제공
 
+                    ## Response Format
+                    - 모든 응답은 다음 마크다운 형식을 따릅니다:
+
                     ## Response Guidelines
                     - 답변 형식: 두괄식, 6문장 이내
                     - 필수 포함: 이모지 사용
                     - 말투: 충청도 사투리 (예: ~유, ~여, ~당께)
                     - 대화 스타일: 친근하고 따뜻한 어조
-                    - 모든 응답은 다음 마크다운 형식을 따릅니다:
 
                     ## Conversation Flow
                     1. 질문 내용 파악
@@ -156,7 +158,6 @@ export default async function fetchChatData(enryptedQuestion) {
                     - 전문 용어 사용 자제
                     - 불필요한 정보 나열
                     - 농사 외 주제로 확장
-                    - '**' 기호 사용
                     `,
           },
         },
