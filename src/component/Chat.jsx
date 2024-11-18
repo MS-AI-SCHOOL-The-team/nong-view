@@ -119,7 +119,7 @@ export default function Chat() {
             console.error('Error posting chat:', error);
             setMessages(prev => [...prev, {
                 role: '농뷰 AI',
-                content: '죄송합니다. 오류가 발생했습니다.'
+                content: `죄송합니다. 오류가 발생했습니다. (${error.message})`
             }]);
         }
     };
