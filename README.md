@@ -20,9 +20,10 @@ AI 채팅 기능을 사용하려면 다음 환경 변수를 추가해야 합니�
 
 - **OPENAI_KEY**: Azure API 키
 - **OPENAI_URL**: ChatGPT API URL
-- **SEARCH_ENDPOINT**: SEARCH API URL
-- **SEARCH_INDEX_NAME**: SEARCH API INDEX NAME
-- **SEARCH_API_KEY**: SEARCH API 키
+- **NEXT_PUBLIC_SECRET_KEY**: 채팅 데이터 암호키(SALT)
+- **GEMINI_API_ENDPOINT**: GEMINI API URL(API 키 포함)
+- **GOOGLE_FILE_API_ENDPOINT**: Google File API URL(API 키 포함)
+- **MODEL**: GEMINI 혹은 OPENAI
 
 이 변수들을 프로젝트의 환경 변수에 설정해야 AI 기능이 정상적으로 작동합니다.
 
@@ -34,6 +35,7 @@ AI 채팅 기능을 사용하려면 다음 환경 변수를 추가해야 합니�
 - **정확한 수치 데이터**: 상승, 하락, 유지 정보 외에도 구체적인 예측 수치 제공
 
 ## 사용 데이터
+
 - **농넷** - 등급별 평균가격, 총 거래물량
 - **기상자료개방포털** - 전국 온도 데이터
 - **기상청 API허브** - 폭염/한파 경보 데이터
@@ -96,11 +98,11 @@ AI와 데이터 분석은 이러한 문제를 해결할 수 있는 핵심 도구
 
 ## 프로젝트 팀 정보
 
-|이름|역할|
-|--|--|
-|[soyeon-rgb](https://github.com/soyeon-rgb)|Project Manager|
-|[najung9551](https://github.com/najung9551)|UI/UX Designer|
-|[zampano-1](https://github.com/zampano-1)|Product Planner|
-|[CheongYa](https://github.com/CheongYa)|DevOps/Prompt Engineer|
-|[IDKNWHORU](https://github.com/IDKNWHORU)|Frontend Developer|
-|[devyulbae](https://github.com/devyulbae)|Machine Learning Engineer|
+| 이름                                        | 역할                      |
+| ------------------------------------------- | ------------------------- |
+| [soyeon-rgb](https://github.com/soyeon-rgb) | Project Manager           |
+| [najung9551](https://github.com/najung9551) | UI/UX Designer            |
+| [zampano-1](https://github.com/zampano-1)   | Product Planner           |
+| [CheongYa](https://github.com/CheongYa)     | DevOps/Prompt Engineer    |
+| [IDKNWHORU](https://github.com/IDKNWHORU)   | Frontend Developer        |
+| [devyulbae](https://github.com/devyulbae)   | Machine Learning Engineer |
