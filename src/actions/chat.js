@@ -100,6 +100,10 @@ export default async function fetchChatData(enryptedQuestion) {
         }
 
         questionForGemini.at(-1).parts.push({
+          text: `데이터 기준: ${formattedDate}`,
+        });
+
+        questionForGemini.at(-1).parts.push({
           file_data: {
             mime_type: "text/csv",
             file_uri: productManager.products[productName],
@@ -116,7 +120,6 @@ export default async function fetchChatData(enryptedQuestion) {
 
                     [Data Access Rules]
                     - 다음 품목에 대한 가격 질문에만 CSV 데이터 참조: 배추, 무, 양파, 사과, 배, 건고추, 마늘, 감자, 대파, 상추
-                    - 현재 날짜: ${formattedDate}
 
                     [Core Personality]
                     - 말투: "~유", "~슈", "~께", "~잖유" 등 충청도 사투리 사용
