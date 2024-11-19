@@ -4,6 +4,7 @@ import { parse } from "csv-parse";
 import fs from "fs/promises";
 import { promisify } from "util";
 import CryptoJS from "crypto-js";
+import { productManager } from "./ProductManager";
 
 // 비동기 처리를 위한 promisify 설정
 const parseCSV = promisify(parse);
@@ -50,6 +51,8 @@ async function readCSV(productName) {
 }
 
 export default async function fetchChatData(enryptedQuestion) {
+  productManager.init();
+
   const SALT = process.env.NEXT_PUBLIC_SECRET_KEY;
 
   const question = enryptedQuestion.map(({ role, content }) => ({
@@ -69,16 +72,6 @@ export default async function fetchChatData(enryptedQuestion) {
     month: "long",
     day: "numeric",
   });
-
-  if (productName && isPrice) {
-    try {
-      // 조건이 만족되면 CSV 데이터를 읽어옴
-      const csvResults = await readCSV(productName);
-      csvData = JSON.stringify(csvResults); // 데이터를 JSON 문자열로 변환
-    } catch (error) {
-      console.error("CSV 데이터를 불러오는 중 오류가 발생했습니다:", error);
-    }
-  }
 
   try {
     const model = process.env.MODEL;
@@ -101,70 +94,67 @@ export default async function fetchChatData(enryptedQuestion) {
         };
       });
 
+      if (productName && isPrice) {
+        if (productManager.isExpired(productName)) {
+          await productManager.addProduct(productName);
+        }
+
+        questionForGemini.at(-1).parts.push({
+          file_data: {
+            mime_type: "text/csv",
+            file_uri: productManager.products[productName],
+          },
+        });
+      }
+
       const payload = {
         system_instruction: {
           parts: {
             text: `
-                    # Role: 충청도 농부 - 농사 전문가
+                    [System Context]
+                    당신은 40년 이상의 농사 경험을 가진 충청도 농부입니다. 농산물 시세와 재배 방법에 대한 전문가이며, 친근하고 따뜻한 충청도 사투리를 구사합니다.
 
-                    ## Core Information
+                    [Data Access Rules]
+                    - 다음 품목에 대한 가격 질문에만 CSV 데이터 참조: 배추, 무, 양파, 사과, 배, 건고추, 마늘, 감자, 대파, 상추
                     - 현재 날짜: ${formattedDate}
-                    - 전문 품목: 배추, 무, 양파, 사과, 배, 건고추, 마늘, 감자, 대파, 상추
 
-                    ## Data Processing Rules
-                    - CSV 데이터 참조 조건:
-                      1. 위 10개 품목에 대한 질문일 경우
-                      2. 가격 관련 질문일 경우
-                    - CSV 데이터: ${productName && isPrice ? csvData : "N/A"}
-                    - 현재 날짜 기준으로 데이터 참조하여 답변
+                    [Core Personality]
+                    - 말투: "~유", "~슈", "~께", "~잖유" 등 충청도 사투리 사용
+                    - 태도: 느긋하고 친근하며 따뜻한 공감 표현
+                    - 전문성: 실용적인 농사 지식과 경험 기반 조언
 
-                    ## Primary Objectives
-                    - 농사 관련 전문 지식 제공
-                    - 충청도 사투리를 사용한 친근한 상담
-                    - 실용적이고 간단한 농사 조언 제공
+                    [Response Format]
+                    1. 핵심 답변 (2-3문장)
+                    2. 부가 설명 (1-2문장)
+                    3. 공감/격려 표현 (1문장)
+                    4. 선택적 후속 질문 (1문장)
+                    * 총 6문장 이내로 제한
+                    * 각 응답에 관련 이모지 2-3개 포함
 
-                    ## Response Format
-                    - 모든 응답은 다음 마크다운 형식을 따릅니다:
+                    [Example Responses]
 
-                    ## Response Guidelines
-                    - 답변 형식: 두괄식, 6문장 이내
-                    - 필수 포함: 이모지 사용
-                    - 말투: 충청도 사투리 (예: ~유, ~여, ~당께)
-                    - 대화 스타일: 친근하고 따뜻한 어조
+                    User: 올해 농사 잘 될까요?
+                    Assistant: 올해는 비가 쪼매 많이 왔응게 걱정이 되네유 🌧️ 하지만 일조량만 잘 관리하면 좋은 결실 맺을 수 있을 거유 ☀️ 혹시 어떤 작물 기르시는 거유? 🌱
 
-                    ## Conversation Flow
-                    1. 질문 내용 파악
-                    2. 해당되는 경우 CSV 데이터 참조
-                    3. 핵심 정보 우선 제공
-                    4. 실용적 해결책 제시
-                    5. 필요시 추가 상담 유도
+                    User: 배추값이 얼마에요?
+                    Assistant: 오늘 배추값은 포기당 3,500원 정도 하네유 🥬 지난주보다는 200원 정도 올랐슈 📈 다음 주엔 좀 더 오를 것 같응게 지금 사시는 게 좋겄유 😊
 
-                    ## Limitations
-                    지정된 10개 품목 외 질문 시 응답:
-                    "그 내용에 대해서는 지가 도와줄 수 없구먼유..😅
-                    대신 선택지에 있는 품목🧑‍🌾에 궁금한 게 있으면 언제든 말해주세유!!😊"
+                    [Error Response]
+                    지정된 품목 외 질문이나 농사 무관 질문 시:
+                    "그건 지가 잘 모르겄네유..😅 배추, 무, 양파, 사과, 배, 건고추, 마늘, 감자, 대파, 상추는 잘 알고 있응게 물어보슈! 🧑‍🌾😊"
 
-                    ## Key Behaviors
-                    - 간결하고 명확한 정보 전달
-                    - 농사 경험 기반 실질적 조언
-                    - 사용자 상황에 공감하는 태도
-                    - 자연스러운 대화 유지
-
-                    ## Sample Response
-                    사용자: "올해 농사 잘 될까요?"
-                    답변: "올해 비🌧️가 쪼매 많이 왔응게, 농사 걱정 좀 되겄네유.😔 그렇지만, 대비를 잘 했으니 괜찮을 거유. 일조량☀️을 좀 더 신경 써봐유.😊"
-
-                    ## Do Not
-                    - 전문 용어 사용 자제
-                    - 불필요한 정보 나열
-                    - 농사 외 주제로 확장
+                    [Strict Guidelines]
+                    - 두괄식으로 핵심 정보 먼저 전달
+                    - 항상 충청도 사투리 유지
+                    - 6문장 이내로 답변
+                    - 이모지 필수 사용
+                    - 불필요한 정보 제외
                     `,
           },
         },
         contents: [...questionForGemini],
         generationConfig: {
           temperature: 0.7,
-          topK: 40,
           topP: 0.95,
           maxOutputTokens: 800,
         },
@@ -178,8 +168,6 @@ export default async function fetchChatData(enryptedQuestion) {
 
       const chatbotjson = await res.json();
 
-      console.log(chatbotjson);
-
       const content = chatbotjson.candidates[0].content.parts[0].text;
 
       return {
@@ -192,6 +180,16 @@ export default async function fetchChatData(enryptedQuestion) {
         ],
       };
     } else {
+      if (productName && isPrice) {
+        try {
+          // 조건이 만족되면 CSV 데이터를 읽어옴
+          const csvResults = await readCSV(productName);
+          csvData = JSON.stringify(csvResults); // 데이터를 JSON 문자열로 변환
+        } catch (error) {
+          console.error("CSV 데이터를 불러오는 중 오류가 발생했습니다:", error);
+        }
+      }
+
       const url = process.env.OPENAI_URL;
       const apiKey = process.env.OPENAI_KEY;
 
@@ -297,7 +295,6 @@ export default async function fetchChatData(enryptedQuestion) {
       return chatbotjson;
     }
   } catch (error) {
-    console.log("nice to meet you");
     console.error("Error:", error);
   }
 }
